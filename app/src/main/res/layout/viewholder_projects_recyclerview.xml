@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@color/grey">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/ic_customer" android:id="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="16dp" android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"/>
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/textViewAppName"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@android:color/white" app:layout_constraintStart_toEndOf="@+id/imageView" android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textViewDate" android:layout_marginTop="16dp"/>
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/textViewWorkDescription"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@android:color/white" app:layout_constraintStart_toStartOf="@+id/textViewAppName"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="16dp" android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/textViewAppName" android:layout_marginTop="8dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textViewDate"
+            android:textColor="@android:color/white" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewAppName" android:layout_marginRight="16dp" android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toEndOf="@+id/textViewAppName" android:layout_marginLeft="16dp" android:layout_marginStart="16dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textViewTotalTime"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="@+id/textViewWorkDescription"
+            app:layout_constraintTop_toBottomOf="@+id/textViewWorkDescription" android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="4dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textViewTimes"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="4dp" android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@+id/textView12"
+            app:layout_constraintTop_toTopOf="@+id/textViewTotalTime"/>
+    <TextView
+            android:text="@string/textDivider"
+            android:layout_width="0dp"
+            android:layout_height="20dp" android:id="@+id/textView12"
+            android:textColor="@android:color/white" android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintStart_toEndOf="@+id/textViewTotalTime"
+            android:layout_marginLeft="4dp" android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewTimes" android:layout_marginBottom="2dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

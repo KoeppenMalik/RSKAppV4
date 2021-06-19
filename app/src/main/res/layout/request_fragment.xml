@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="@color/grey">
+
+    <TextView
+            android:text="@string/request" android:textColor="@android:color/white"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView15"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="16dp" android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="@+id/buttonAddToCustomers"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonAddToCustomers"/>
+    <View
+            android:id="@+id/divider14"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:background="@drawable/divider_background"
+            android:layout_marginEnd="4dp" android:layout_marginRight="4dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp" android:layout_marginTop="48dp" app:layout_constraintTop_toBottomOf="@+id/textView15"/>
+    <EditText
+            app:backgroundTint="@android:color/white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editTextName" app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toBottomOf="@+id/divider14" android:layout_marginTop="24dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="16dp" android:layout_marginEnd="16dp" android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"/>
+    <EditText
+            app:backgroundTint="@android:color/white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="none" android:editable="false"
+            android:ems="10"
+            android:id="@+id/editTextDate"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@+id/editTextName" app:layout_constraintStart_toEndOf="@+id/buttonSetDate"
+            android:layout_marginLeft="16dp" android:layout_marginStart="16dp" app:layout_constraintBottom_toBottomOf="@+id/buttonSetDate"/>
+    <EditText
+            app:backgroundTint="@android:color/white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editTextWorkDescription"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@+id/editTextDate"
+            app:layout_constraintStart_toStartOf="@+id/buttonSetDate" app:layout_constraintTop_toBottomOf="@+id/buttonSetDate"
+            android:layout_marginTop="16dp"/>
+    <TextView
+            android:text="@string/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView19"
+            android:textColor="@android:color/white" app:layout_constraintStart_toStartOf="@+id/editTextName"
+            app:layout_constraintTop_toBottomOf="@+id/editTextName"/>
+    <TextView
+            android:text="@string/workDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView21"
+            android:textColor="@android:color/white" app:layout_constraintStart_toStartOf="@+id/editTextWorkDescription"
+            app:layout_constraintTop_toBottomOf="@+id/editTextWorkDescription"/>
+    <Button
+            android:text="@string/finish"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/buttonFinish"
+            android:layout_marginEnd="16dp" android:layout_marginRight="16dp" app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@android:color/white" android:background="@drawable/button_background_1"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"/>
+    <Button
+            android:text="@string/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/buttonSetDate"
+            app:layout_constraintStart_toStartOf="@+id/textView19" android:background="@drawable/button_background"
+            android:textColor="@android:color/white" app:layout_constraintTop_toBottomOf="@+id/textView19" android:layout_marginTop="16dp"/>
+    <Button
+            android:text="@string/cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/buttonCancel"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp" app:layout_constraintTop_toTopOf="@+id/buttonFinish"
+            app:layout_constraintEnd_toStartOf="@+id/buttonFinish" android:layout_marginRight="16dp" android:layout_marginEnd="16dp"
+            android:background="@drawable/button_background" android:textColor="@android:color/white"/>
+
+    <Button
+        android:id="@+id/buttonAddToCustomers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_background_2"
+        android:drawableEnd="@drawable/ic_convert_to_project"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="@string/convertToProject"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

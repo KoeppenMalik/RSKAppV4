@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:enabled="true"
+          android:id="@+id/tabOverview"
+          android:title="@string/tabOverview"
+          android:icon="@drawable/ic_tab_overview"/>
+    <item android:enabled="true"
+          android:id="@+id/tabProjects"
+          android:title="@string/tabProjects"
+          android:icon="@drawable/ic_tab_projects"/>
+</menu>
