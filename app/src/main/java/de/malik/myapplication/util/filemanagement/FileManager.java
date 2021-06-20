@@ -12,6 +12,8 @@ public class FileManager {
     public static final String COMMENT_PREFIX = "##";
     public static final String SPLIT_REGEX = ",";
 
+    private static String test;
+
     private File customersFile, pausesFile, archiveFile, archivedPausesFile, requestsFile,
             savedCustomerNamesFile, savedWorkDescriptionsFile, tempFile, appDataFile;
     private Printer printer;
