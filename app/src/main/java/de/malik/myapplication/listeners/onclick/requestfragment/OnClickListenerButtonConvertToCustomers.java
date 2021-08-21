@@ -27,7 +27,7 @@ public class OnClickListenerButtonConvertToCustomers implements View.OnClickList
 
         projectManager.getProjects().add(project);
         projectManager.getRequests().remove(request);
-        system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+        system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
         system.replaceCurrentFragmentWith(new ProjectFragment(system, project), R.anim.slide_right);
     }
 }

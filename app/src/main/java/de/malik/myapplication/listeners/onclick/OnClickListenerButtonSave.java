@@ -15,7 +15,7 @@ public class OnClickListenerButtonSave implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+        system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
         system.makeShortToast("Kunden gespeichert");
     }
 }

@@ -41,7 +41,7 @@ public class OnClickListenerButtonAddNewCustomerName implements View.OnClickList
                 return;
             }
             system.getProjectManager().getSavedCustomerNames().add(customerName);
-            system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
             dialog.dismiss();
             system.replaceCurrentFragmentWith(new CustomerNamesFragment(system), RSKSystem.NO_ANIM);
         });

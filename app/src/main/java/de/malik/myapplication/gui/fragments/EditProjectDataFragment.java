@@ -30,6 +30,7 @@ import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListe
 import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerImageButtonChooseName;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.mylibrary.managers.TimeManager;
 
 public class EditProjectDataFragment extends Fragment {
 
@@ -71,17 +72,11 @@ public class EditProjectDataFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(system.getContext(), android.R.layout.select_dialog_item, savedWorkDescriptions);
         editTextWorkDescription.setAdapter(adapter);
         editTextWorkDescription.setThreshold(1);
-        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        Date date = null;
         try {
-            date = df.parse(project.getDate());
-        } catch (ParseException ex) {
-            ex.printStackTrace();
+            editTextDate.setText(project.getDate() + " (" + TimeManager.WEEK_DAYS[TimeManager.dayOfWeek(project.getDate()) -1] + ")");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        Calendar c = Calendar.getInstance();
-        c.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
-        c.setTime(date);
-        editTextDate.setText(project.getDate() + " (" + RSKSystem.TimeManager.WEEK_DAYS[c.get(Calendar.DAY_OF_WEEK)] + ")");
         setListeners();
     }
 

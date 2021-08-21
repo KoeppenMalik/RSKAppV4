@@ -61,7 +61,7 @@ public class OnClickListenerButtonFilterProjects implements View.OnClickListener
             system.setCurrentFilter(newFilter);
             system.getProjectManager().setProjects(filteredProjects);
             recyclerAdapterProjects.notifyDataSetChanged();
-            system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
             dialog.dismiss();
             system.replaceCurrentFragmentWith(new ProjectsFragment(system), RSKSystem.NO_ANIM);
         });

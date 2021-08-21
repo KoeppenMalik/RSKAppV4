@@ -10,12 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
 
 import de.malik.myapplication.R;
 import de.malik.myapplication.listeners.onclick.requestfragment.OnClickListenerButtonConvertToCustomers;
@@ -24,6 +19,7 @@ import de.malik.myapplication.listeners.onclick.requestfragment.OnClickListenerB
 import de.malik.myapplication.listeners.onclick.requestfragment.OnClickListenerButtonSetDate;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Request;
+import de.malik.mylibrary.managers.TimeManager;
 
 public class RequestFragment extends Fragment {
 
@@ -54,17 +50,11 @@ public class RequestFragment extends Fragment {
     }
 
     private void setDateToTextView() {
-        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        Date date = null;
         try {
-            date = df.parse(request.getDate());
-        } catch (ParseException ex) {
-            ex.printStackTrace();
+            editTextDate.setText(request.getDate() + " (" + TimeManager.WEEK_DAYS[TimeManager.dayOfWeek(request.getDate()) -1] + ")");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        Calendar c = Calendar.getInstance();
-        c.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
-        c.setTime(date);
-        editTextDate.setText(request.getDate() + " (" + RSKSystem.TimeManager.WEEK_DAYS[c.get(Calendar.DAY_OF_WEEK)] + ")");
     }
 
     private void createComponents() {

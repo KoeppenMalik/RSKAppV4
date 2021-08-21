@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import de.malik.myapplication.listeners.onclick.OnClickListenerButtonSave;
 import de.malik.myapplication.listeners.onclick.projectsfragment.OnClickListenerButtonFilterProjects;
-import de.malik.myapplication.listeners.onquerytext.OnQueryTextListenerSearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -59,7 +58,6 @@ public class ProjectsFragment extends Fragment {
 
     private void setListeners() {
         buttonFilter.setOnClickListener(new OnClickListenerButtonFilterProjects(system, recyclerAdapterProjects));
-        system.getMainActivitySearchView().setOnQueryTextListener(new OnQueryTextListenerSearchView(recyclerAdapterProjects));
         buttonSave.setOnClickListener(new OnClickListenerButtonSave(system));
     }
 

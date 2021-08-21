@@ -2,18 +2,20 @@
 
 package de.malik.myapplication.util.customermanagement;
 
-import de.malik.myapplication.util.filemanagement.FileManager;
+import de.malik.myapplication.util.filemanagement.RSKFileManager;
+import de.malik.mylibrary.managers.TimeManager;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Project {
 
     private long id;
     private String name, date, workDescription;
-    private Time startTime, stopTime;
+    private Date startTime, stopTime;
     private ArrayList<Pause> pauses = new ArrayList<>();
 
-    public Project(long id, String name, Time startTime, Time stopTime, String date, String workDescription) {
+    public Project(long id, String name, Date startTime, Date stopTime, String date, String workDescription) {
         this.id = id;
         this.name = name;
         this.startTime = startTime;
@@ -27,8 +29,12 @@ public class Project {
      * @return a string which can be printed into a file
      */
     public String getRecord() {
-        return id + FileManager.SPLIT_REGEX + name + FileManager.SPLIT_REGEX + startTime.asString() + FileManager.SPLIT_REGEX + stopTime.asString() +
-                FileManager.SPLIT_REGEX + date + FileManager.SPLIT_REGEX + workDescription;
+        String record = id + RSKFileManager.SPLIT_REGEX + name + RSKFileManager.SPLIT_REGEX + TimeManager.toTimeString(startTime, false) + RSKFileManager.SPLIT_REGEX + TimeManager.toTimeString(stopTime, false) +
+                RSKFileManager.SPLIT_REGEX + date + RSKFileManager.SPLIT_REGEX + workDescription;
+        for (Pause pause : pauses) {
+            record += RSKFileManager.SPLIT_REGEX + pause.getId();
+        }
+        return record;
     }
 
     public long getId() {
@@ -39,11 +45,11 @@ public class Project {
         return name;
     }
 
-    public Time getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public Time getStopTime() {
+    public Date getStopTime() {
         return stopTime;
     }
 
@@ -63,11 +69,11 @@ public class Project {
         this.name = name;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public void setStopTime(Time stopTime) {
+    public void setStopTime(Date stopTime) {
         this.stopTime = stopTime;
     }
 

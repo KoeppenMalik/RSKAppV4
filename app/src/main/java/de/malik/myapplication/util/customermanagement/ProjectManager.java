@@ -3,12 +3,18 @@
 package de.malik.myapplication.util.customermanagement;
 
 
-import de.malik.myapplication.util.filemanagement.FileManager;
-import de.malik.myapplication.util.filemanagement.Parser;
-import de.malik.myapplication.util.filemanagement.Reader;
+import android.util.Log;
 
+import de.malik.myapplication.util.filemanagement.Parser;
+import de.malik.myapplication.util.filemanagement.RSKFileManager;
+import de.malik.mylibrary.managers.FileManager;
+import de.malik.mylibrary.utils.UtilsLibFileReader;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 
 public class ProjectManager {
 
@@ -16,26 +22,89 @@ public class ProjectManager {
     private ArrayList<Request> requests;
     private ArrayList<String> savedCustomerNames, savedWorkDescriptions;
 
-    public ProjectManager(FileManager fileManager) {
-        // current customers
-        ArrayList<String> lines = Reader.readLines(fileManager.getPausesFile());
-        ArrayList<Pause> pauses = Parser.parsePauses(lines);
-        lines = Reader.readLines(fileManager.getCustomersFile());
-        projects = Parser.parseProjects(lines, pauses);
-        // archived customers
-        lines = Reader.readLines(fileManager.getArchivedPausesFile());
-        pauses = Parser.parsePauses(lines);
-        lines = Reader.readLines(fileManager.getArchiveFile());
-        archivedProjects = Parser.parseProjects(lines, pauses);
-        // requests
-        lines = Reader.readLines(fileManager.getRequestsFile());
-        requests = Parser.parseRequests(lines);
-        // saved customer names
-        lines = Reader.readLines(fileManager.getSavedCustomerNamesFile());
-        savedCustomerNames = Parser.parseStrings(lines);
-        // saved work descriptions
-        lines = Reader.readLines(fileManager.getSavedWorkDescriptionsFile());
-        savedWorkDescriptions = Parser.parseStrings(lines);
+    public ProjectManager() {
+        ArrayList<String> lines;
+        ArrayList<Pause> pauses;
+        UtilsLibFileReader reader = FileManager.getReader();
+        Map<String, File> createdFiles = FileManager.CREATED_FILES;
+        String[] fileNames = RSKFileManager.FILE_NAMES;
+        try {
+            // current projects
+            lines = FileManager.getReader().readLines(createdFiles.get(fileNames[2]));
+            pauses = Parser.parsePauses(lines);
+            lines = FileManager.getReader().readLines(createdFiles.get(fileNames[0]));
+            projects = Parser.parseProjects(lines, pauses);
+            // archived projects
+            lines = reader.readLines(createdFiles.get(fileNames[3]));
+            pauses = Parser.parsePauses(lines);
+            lines = reader.readLines(createdFiles.get(fileNames[1]));
+            archivedProjects = Parser.parseProjects(lines, pauses);
+            // requests
+            lines = reader.readLines(createdFiles.get(fileNames[4]));
+            requests = Parser.parseRequests(lines);
+            // saved project names
+            lines = reader.readLines(createdFiles.get(fileNames[5]));
+            savedCustomerNames = Parser.parseStrings(lines);
+            // saved work descriptions
+            lines = reader.readLines(createdFiles.get(fileNames[6]));
+            savedWorkDescriptions = Parser.parseStrings(lines);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public Project findProject(Project projectParam) {
+        int index = 0;
+        for (int i = 0; i < projects.size(); i++) {
+            if (projects.get(i).getId() == projectParam.getId()) {
+                index = i;
+                break;
+            }
+        }
+        return projects.get(index);
+    }
+
+    public String convertSavedProjectDataToPrintableString(ArrayList<String> data) {
+        String printableString = null;
+        for (String record : data) {
+            if (!record.equals(data.get(data.size() -1)))
+                record += RSKFileManager.SPLIT_REGEX;
+            printableString += record;
+
+        }
+        return printableString;
+    }
+
+    public ArrayList<ArrayList<String>> getPrintableDataLists() {
+        ArrayList<ArrayList<String>> dataLists = new ArrayList<>();
+        ArrayList<String> projects = new ArrayList<>(),
+                archivedProjects = new ArrayList<>(),
+                pauses = new ArrayList<>(),
+                archivedPauses = new ArrayList<>(),
+                requests = new ArrayList<>();
+
+        for (Project project : this.projects) {
+            projects.add(project.getRecord());
+        }
+        for (Project archivedProject : this.archivedProjects) {
+            archivedProjects.add(archivedProject.getRecord());
+        }
+        for (Pause pause : getPauses()) {
+            pauses.add(pause.getRecord());
+            Log.i("TAG", pause.getRecord());
+        }
+        for (Pause archivedPause : getArchivedPauses()) {
+            archivedPauses.add(archivedPause.getRecord());
+        }
+        for (Request request : this.requests) {
+            requests.add(request.getRecord());
+        }
+        dataLists.add(projects);
+        dataLists.add(archivedProjects);
+        dataLists.add(pauses);
+        dataLists.add(archivedPauses);
+        dataLists.add(requests);
+        return dataLists;
     }
 
     public int getPositionOf(String element, ArrayList<String> list) {
@@ -79,18 +148,10 @@ public class ProjectManager {
         return allPauses;
     }
 
-    /**
-     * gets a list of all archived customers
-     * @return an arraylist of all archived customers
-     */
     public ArrayList<Project> getArchivedProjects() {
         return archivedProjects;
     }
 
-    /**
-     * gets a list of all requests
-     * @return an arraylist of all requests customers
-     */
     public ArrayList<Request> getRequests() {
         return requests;
     }
@@ -99,10 +160,6 @@ public class ProjectManager {
         this.projects = projects;
     }
 
-    /**
-     * gets a list of all saved customer names
-     * @return an arraylist of all saved customer names
-     */
     public ArrayList<String> getSavedCustomerNames() {
         return savedCustomerNames;
     }

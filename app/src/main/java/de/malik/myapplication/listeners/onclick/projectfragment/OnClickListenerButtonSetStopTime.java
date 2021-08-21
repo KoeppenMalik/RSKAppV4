@@ -6,13 +6,15 @@ import android.app.TimePickerDialog;
 import android.view.View;
 import android.widget.TimePicker;
 import androidx.fragment.app.DialogFragment;
+
+import java.util.Date;
+
 import de.malik.myapplication.gui.fragments.ProjectFragment;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.TimePickerFragment;
+import de.malik.myapplication.util.customermanagement.Pause;
 import de.malik.myapplication.util.customermanagement.Project;
-import de.malik.myapplication.util.customermanagement.Time;
-
-import static de.malik.myapplication.util.RSKSystem.TimeManager.*;
+import de.malik.mylibrary.managers.TimeManager;
 
 public class OnClickListenerButtonSetStopTime implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
 
@@ -35,26 +37,26 @@ public class OnClickListenerButtonSetStopTime implements View.OnClickListener, T
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         if (!projectFragment.getEditTextStartTime().getText().toString().equals("")) {
-            String timeString = hourOfDay + ":" + minute + " Uhr";
+            String timeString = hourOfDay + TimeManager.default_time_separator + minute;
+            Date selectedTime = new Date(TimeManager.toMillis(timeString));
 
-            if (minute < 10) {
-                timeString = hourOfDay + ":0" + minute + " Uhr";
-            }
-            project.setStopTime(RSKSystem.TimeManager.parseTime(timeString));
-            projectFragment.getEditTextStopTime().setText(timeString);
+            project.setStopTime(selectedTime);
+            projectFragment.getEditTextStopTime().setText(TimeManager.formatTimeString(TimeManager.toTimeString(selectedTime, false)));
             setTotalTime();
-            system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
         }
         else system.makeShortToast("Wähle zuerst die Startzeit");
     }
 
     private void setTotalTime() {
-        String[] times = parseTimes(projectFragment.getEditTextStartTime().getText().toString(), projectFragment.getEditTextStopTime().getText().toString());
-        Time startTime = parseTime(times[0]);
-        Time stopTime = parseTime(times[1]);
-        Time diff = getDiffInMinutes(startTime, stopTime, project.getPauses());
-
-        projectFragment.getEditTextTotalTime().setText(diff.asDiffString());
+        String[] timeStrings = TimeManager.cutOffTimeSuffix(projectFragment.getEditTextStartTime().getText().toString(), projectFragment.getEditTextStopTime().getText().toString());
+        Date startTime = new Date(TimeManager.toMillis(timeStrings[0]));
+        Date stopTime = new Date(TimeManager.toMillis(timeStrings[1]));
+        long diff = TimeManager.diff(stopTime, startTime);
+        for (Pause pause : project.getPauses()) {
+            diff -= pause.getTime().getTime();
+        }
+        projectFragment.getEditTextTotalTime().setText(TimeManager.formatTimeString(TimeManager.toTimeString(new Date(diff), false)));
 
     }
 }

@@ -7,6 +7,7 @@ import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.RequestFragment;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Request;
+import de.malik.mylibrary.managers.TimeManager;
 
 public class OnClickListenerButtonAddRequest implements View.OnClickListener {
 
@@ -19,9 +20,9 @@ public class OnClickListenerButtonAddRequest implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         long id = system.getProjectManager().getNextRequestId();
-        Request request = new Request(id, "Unbekannt " + id, RSKSystem.TimeManager.getCurrentDate(), "-");
+        Request request = new Request(id, "Unbekannt " + id, TimeManager.currentDate(), "-");
         system.getProjectManager().getRequests().add(request);
-        system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+        system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
         system.replaceCurrentFragmentWith(new RequestFragment(system, request), R.anim.slide_up);
     }
 }

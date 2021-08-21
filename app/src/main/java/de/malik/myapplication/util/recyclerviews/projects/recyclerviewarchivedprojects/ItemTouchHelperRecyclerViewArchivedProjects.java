@@ -55,7 +55,7 @@ public class ItemTouchHelperRecyclerViewArchivedProjects extends ItemTouchHelper
                     .setAction("Rückgängig machen", new OnClickListenerUndoUnarchiveCustomer(INDEX, projectManager, unarchivedProject, recyclerAdapterProjects))
                     .show();
         }
-        recyclerAdapterProjects.setFilteredProjects(projectManager.getArchivedProjects());
+        recyclerAdapterProjects.setProjects(projectManager.getArchivedProjects());
     }
 
     @Override

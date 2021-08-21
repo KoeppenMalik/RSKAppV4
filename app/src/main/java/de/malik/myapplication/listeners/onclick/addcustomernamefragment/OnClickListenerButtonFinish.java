@@ -22,7 +22,7 @@ public class OnClickListenerButtonFinish implements View.OnClickListener {
         String customerName = editTextCustomerName.getText().toString();
         if (!customerName.isEmpty()) {
             system.getProjectManager().getSavedCustomerNames().add(customerName);
-            system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
             system.replaceCurrentFragmentWith(new CustomerNamesFragment(system), R.anim.slide_down);
         }
         else system.makeShortToast("Name darf nicht leer sein");

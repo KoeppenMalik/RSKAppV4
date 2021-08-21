@@ -59,7 +59,7 @@ public class ItemTouchHelperRecyclerViewProjects extends ItemTouchHelper.SimpleC
                     .setAction("Rückgängig machen", new OnClickListenerUndoArchiveCustomer(INDEX, recyclerAdapterProjects, archivedProject, projectManager))
                     .show();
         }
-        recyclerAdapterProjects.setFilteredProjects(projectManager.getProjects());
+        recyclerAdapterProjects.setProjects(projectManager.getProjects());
     }
 
     @Override

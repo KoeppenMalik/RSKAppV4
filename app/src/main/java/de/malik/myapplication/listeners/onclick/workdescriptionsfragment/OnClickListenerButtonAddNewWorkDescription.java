@@ -41,7 +41,7 @@ public class OnClickListenerButtonAddNewWorkDescription implements View.OnClickL
                 return;
             }
             system.getProjectManager().getSavedWorkDescriptions().add(workDescription);
-            system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
             dialog.dismiss();
             system.replaceCurrentFragmentWith(new WorkDescriptionsFragment(system), RSKSystem.NO_ANIM);
         });

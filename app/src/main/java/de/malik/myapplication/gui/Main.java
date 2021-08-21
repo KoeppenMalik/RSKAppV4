@@ -2,6 +2,7 @@ package de.malik.myapplication.gui;
 
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.app.AlertDialog;
@@ -10,14 +11,14 @@ import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.Locale;
-
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.InfoFragment;
+import de.malik.myapplication.gui.fragments.OverviewFragment;
 import de.malik.myapplication.listeners.onnavigationitemselected.OnNavigationItemSelectedListenerBottomNav;
 import de.malik.myapplication.util.RSKSystem;
+import de.malik.myapplication.util.customermanagement.Project;
 import de.malik.myapplication.util.customermanagement.ProjectManager;
-import de.malik.myapplication.util.filemanagement.FileManager;
+import de.malik.myapplication.util.filemanagement.RSKFileManager;
 import de.malik.myapplication.util.filemanagement.Printer;
 
 public class Main extends AppCompatActivity {
@@ -34,9 +35,10 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dialogContext = Main.this;
         getSupportActionBar().setTitle(Html.fromHtml("<font color=\"" + getColor(android.R.color.white) + "\">" + getString(R.string.title) + "</font>"));
-        FileManager fileManager = new FileManager(this, new Printer());
-        ProjectManager projectManager = new ProjectManager(fileManager);
+        RSKFileManager fileManager = new RSKFileManager(getFilesDir().getPath(), new Printer());
+        ProjectManager projectManager = new ProjectManager();
         system = new RSKSystem(this, projectManager, fileManager);
+        system.replaceCurrentFragmentWith(new OverviewFragment(system), RSKSystem.NO_ANIM);
         handleGui();
     }
 
