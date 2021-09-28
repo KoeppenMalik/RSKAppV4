@@ -13,6 +13,7 @@ import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Project;
 import de.malik.myapplication.util.customermanagement.ProjectManager;
 import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProjects;
+import de.malik.mylibrary.managers.FileManager;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ItemTouchHelperRecyclerViewProjects extends ItemTouchHelper.SimpleCallback {
@@ -44,7 +45,7 @@ public class ItemTouchHelperRecyclerViewProjects extends ItemTouchHelper.SimpleC
             projectManager.getProjects().remove(INDEX);
             recyclerAdapterProjects.notifyDataSetChanged();
             Snackbar.make(projectsFragment.getRecyclerView(), "Kunde \"" + deletedProject.getName() + "\" gelöscht", Snackbar.LENGTH_LONG)
-                    .setAction("Rückgängig machen", new OnClickListenerUndoDeleteCustomer(projectManager, recyclerAdapterProjects, INDEX, deletedProject))
+                    .setAction("Rückgängig machen", new OnClickListenerUndoDeleteCustomer(system, recyclerAdapterProjects, INDEX, deletedProject))
                     .show();
         }
         else if (direction == ItemTouchHelper.RIGHT) {
@@ -56,10 +57,11 @@ public class ItemTouchHelperRecyclerViewProjects extends ItemTouchHelper.SimpleC
             projectManager.getArchivedProjects().add(archivedProject);
             recyclerAdapterProjects.notifyDataSetChanged();
             Snackbar.make(projectsFragment.getRecyclerView(), "Kunde \"" + archivedProject.getName() + "\" archiviert", Snackbar.LENGTH_LONG)
-                    .setAction("Rückgängig machen", new OnClickListenerUndoArchiveCustomer(INDEX, recyclerAdapterProjects, archivedProject, projectManager))
+                    .setAction("Rückgängig machen", new OnClickListenerUndoArchiveCustomer(INDEX, recyclerAdapterProjects, archivedProject, system))
                     .show();
         }
         recyclerAdapterProjects.setProjects(projectManager.getProjects());
+        system.getFileManager().getPrinter().reprintFiles(projectManager);
     }
 
     @Override

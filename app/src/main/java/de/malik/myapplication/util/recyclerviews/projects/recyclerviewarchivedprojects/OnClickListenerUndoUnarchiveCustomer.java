@@ -3,6 +3,8 @@
 package de.malik.myapplication.util.recyclerviews.projects.recyclerviewarchivedprojects;
 
 import android.view.View;
+
+import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Project;
 import de.malik.myapplication.util.customermanagement.ProjectManager;
 import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProjects;
@@ -10,21 +12,21 @@ import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProject
 public class OnClickListenerUndoUnarchiveCustomer implements View.OnClickListener {
 
     private int index;
-    private ProjectManager projectManager;
+    private RSKSystem system;
     private Project unarchivedProject;
     private RecyclerAdapterProjects recyclerAdapterProjects;
 
-    public OnClickListenerUndoUnarchiveCustomer(int index, ProjectManager projectManager, Project unarchivedProject, RecyclerAdapterProjects recyclerAdapterProjects) {
+    public OnClickListenerUndoUnarchiveCustomer(int index, RSKSystem system, Project unarchivedProject, RecyclerAdapterProjects recyclerAdapterProjects) {
         this.index = index;
-        this.projectManager = projectManager;
+        this.system = system;
         this.unarchivedProject = unarchivedProject;
         this.recyclerAdapterProjects = recyclerAdapterProjects;
     }
 
     @Override
     public void onClick(View v) {
-        projectManager.getProjects().remove(projectManager.getProjects().lastIndexOf(unarchivedProject));
-        projectManager.getArchivedProjects().add(index, unarchivedProject);
+        system.getProjectManager().getProjects().remove(system.getProjectManager().getProjects().lastIndexOf(unarchivedProject));
+        system.getProjectManager().getArchivedProjects().add(index, unarchivedProject);
         recyclerAdapterProjects.notifyDataSetChanged();
     }
 }

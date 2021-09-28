@@ -23,7 +23,7 @@ public class RSKSystem {
     public static final int NO_ANIM = -1;
 
     private Filter[] filters;
-    private Filter currentFilter = new Filter("ID", FilterValue.ID);
+    private Filter currentFilter = new Filter("ALT ZU NEU", FilterValue.OLD_TO_NEW);
     private Main main;
     private ProjectManager projectManager;
     private RSKFileManager fileManager;
@@ -35,7 +35,7 @@ public class RSKSystem {
         this.fileManager = fileManager;
         filters = new Filter[] {
                 new Filter("NEU ZU ALT", FilterValue.NEW_TO_OLD),
-                new Filter("ID", FilterValue.ID)
+                new Filter("ALT ZU NEU", FilterValue.OLD_TO_NEW)
         };
     }
 

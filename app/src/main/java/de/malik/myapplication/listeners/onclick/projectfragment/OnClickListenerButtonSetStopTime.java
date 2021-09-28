@@ -56,7 +56,7 @@ public class OnClickListenerButtonSetStopTime implements View.OnClickListener, T
         for (Pause pause : project.getPauses()) {
             diff -= pause.getTime().getTime();
         }
-        projectFragment.getEditTextTotalTime().setText(TimeManager.formatTimeString(TimeManager.toTimeString(new Date(diff), false)));
+        projectFragment.getEditTextTotalTime().setText(TimeManager.toTimeString(new Date(diff), false));
 
     }
 }

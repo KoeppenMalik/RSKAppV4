@@ -24,9 +24,7 @@ public class OnClickListenerButtonConvertToCustomers implements View.OnClickList
     public void onClick(View v) {
         ProjectManager projectManager = system.getProjectManager();
         Project project = request.toCustomer(system);
-
         projectManager.getProjects().add(project);
-        projectManager.getRequests().remove(request);
         system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
         system.replaceCurrentFragmentWith(new ProjectFragment(system, project), R.anim.slide_right);
     }

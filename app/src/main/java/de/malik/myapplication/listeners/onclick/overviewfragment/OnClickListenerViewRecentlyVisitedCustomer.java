@@ -20,6 +20,6 @@ public class OnClickListenerViewRecentlyVisitedCustomer implements View.OnClickL
         if (system.getRecentlyVisitedProject() != null) {
             system.replaceCurrentFragmentWith(new ProjectFragment(system, system.getRecentlyVisitedProject()), R.anim.slide_right);
         }
-        else system.showErrorDialog("Es wurde noch kein Kunde ausgewählt.");
+        else system.showErrorDialog("Es wurde noch kein Projekt ausgewählt.");
     }
 }

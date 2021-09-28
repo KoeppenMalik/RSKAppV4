@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.ArchivedProjectsFragment;
+import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Project;
 import de.malik.myapplication.util.customermanagement.ProjectManager;
 import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProjects;
@@ -17,11 +18,13 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 public class ItemTouchHelperRecyclerViewArchivedProjects extends ItemTouchHelper.SimpleCallback {
 
     private ProjectManager projectManager;
+    private RSKSystem system;
     private ArchivedProjectsFragment archivedProjectsFragment;
 
-    public ItemTouchHelperRecyclerViewArchivedProjects(ProjectManager projectManager, ArchivedProjectsFragment archivedProjectsFragment, int dragDirs, int swipeDirs) {
+    public ItemTouchHelperRecyclerViewArchivedProjects(RSKSystem system, ArchivedProjectsFragment archivedProjectsFragment, int dragDirs, int swipeDirs) {
         super(dragDirs, swipeDirs);
-        this.projectManager = projectManager;
+        this.system = system;
+        this.projectManager = system.getProjectManager();
         this.archivedProjectsFragment = archivedProjectsFragment;
     }
 
@@ -42,7 +45,7 @@ public class ItemTouchHelperRecyclerViewArchivedProjects extends ItemTouchHelper
             projectManager.getArchivedProjects().remove(INDEX);
             recyclerAdapterProjects.notifyDataSetChanged();
             Snackbar.make(archivedProjectsFragment.getRecyclerView(), "Kunde \"" + deletedProject.getName() + "\" gelöscht", Snackbar.LENGTH_LONG)
-                    .setAction("Rückgängig machen", new OnClickListenerUndoDeleteArchivedCustomer(INDEX, projectManager, deletedProject, recyclerAdapterProjects))
+                    .setAction("Rückgängig machen", new OnClickListenerUndoDeleteArchivedCustomer(INDEX, system, deletedProject, recyclerAdapterProjects))
                     .show();
         }
         else if (direction == ItemTouchHelper.RIGHT) {
@@ -52,10 +55,11 @@ public class ItemTouchHelperRecyclerViewArchivedProjects extends ItemTouchHelper
             projectManager.getProjects().add(unarchivedProject);
             recyclerAdapterProjects.notifyDataSetChanged();
             Snackbar.make(archivedProjectsFragment.getRecyclerView(), "Kunde \"" + unarchivedProject.getName() + "\" unarchiviert", Snackbar.LENGTH_LONG)
-                    .setAction("Rückgängig machen", new OnClickListenerUndoUnarchiveCustomer(INDEX, projectManager, unarchivedProject, recyclerAdapterProjects))
+                    .setAction("Rückgängig machen", new OnClickListenerUndoUnarchiveCustomer(INDEX, system, unarchivedProject, recyclerAdapterProjects))
                     .show();
         }
         recyclerAdapterProjects.setProjects(projectManager.getArchivedProjects());
+        system.getFileManager().getPrinter().reprintFiles(projectManager);
     }
 
     @Override

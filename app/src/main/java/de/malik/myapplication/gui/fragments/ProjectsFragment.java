@@ -36,7 +36,7 @@ public class ProjectsFragment extends Fragment {
             v = inflater.inflate(R.layout.projects_fragment, container, false);
             handleGui();
         }
-        else system.replaceCurrentFragmentWith(new ErrorFragment("Derzeit sind keine Kunden vorhanden.", system), R.anim.slide_left);
+        else system.replaceCurrentFragmentWith(new ErrorFragment("Derzeit sind keine Projekte vorhanden.", system), R.anim.slide_left);
         return v;
     }
 

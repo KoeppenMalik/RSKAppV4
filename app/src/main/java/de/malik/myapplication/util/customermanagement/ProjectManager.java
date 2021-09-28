@@ -43,36 +43,12 @@ public class ProjectManager {
             lines = reader.readLines(createdFiles.get(fileNames[4]));
             requests = Parser.parseRequests(lines);
             // saved project names
-            lines = reader.readLines(createdFiles.get(fileNames[5]));
-            savedCustomerNames = Parser.parseStrings(lines);
+            savedCustomerNames = reader.readLines(createdFiles.get(fileNames[5]));
             // saved work descriptions
-            lines = reader.readLines(createdFiles.get(fileNames[6]));
-            savedWorkDescriptions = Parser.parseStrings(lines);
+            savedWorkDescriptions = reader.readLines(createdFiles.get(fileNames[6]));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public Project findProject(Project projectParam) {
-        int index = 0;
-        for (int i = 0; i < projects.size(); i++) {
-            if (projects.get(i).getId() == projectParam.getId()) {
-                index = i;
-                break;
-            }
-        }
-        return projects.get(index);
-    }
-
-    public String convertSavedProjectDataToPrintableString(ArrayList<String> data) {
-        String printableString = null;
-        for (String record : data) {
-            if (!record.equals(data.get(data.size() -1)))
-                record += RSKFileManager.SPLIT_REGEX;
-            printableString += record;
-
-        }
-        return printableString;
     }
 
     public ArrayList<ArrayList<String>> getPrintableDataLists() {

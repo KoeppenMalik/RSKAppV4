@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import de.malik.myapplication.R;
-import de.malik.myapplication.gui.fragments.CustomerNamesFragment;
+import de.malik.myapplication.gui.fragments.ProjectNamesFragment;
 import de.malik.myapplication.util.RSKSystem;
 
 public class OnClickListenerButtonFinish implements View.OnClickListener {
@@ -23,7 +23,7 @@ public class OnClickListenerButtonFinish implements View.OnClickListener {
         if (!customerName.isEmpty()) {
             system.getProjectManager().getSavedCustomerNames().add(customerName);
             system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
-            system.replaceCurrentFragmentWith(new CustomerNamesFragment(system), R.anim.slide_down);
+            system.replaceCurrentFragmentWith(new ProjectNamesFragment(system), R.anim.slide_down);
         }
         else system.makeShortToast("Name darf nicht leer sein");
     }

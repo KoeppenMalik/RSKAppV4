@@ -11,20 +11,20 @@ import android.widget.Spinner;
 import de.malik.myapplication.R;
 import de.malik.myapplication.util.RSKSystem;
 
-public class OnClickListenerImageButtonChooseName implements View.OnClickListener {
+public class OnClickListenerImageButtonChooseWorkDescription implements View.OnClickListener {
 
     private RSKSystem system;
-    private EditText editTextCustomerName;
-    private Button buttonCancel, buttonFinish;
+    private EditText editTextWorkDescription;
     private Spinner spinner;
+    private Button buttonCancel, buttonFinish;
 
-    public OnClickListenerImageButtonChooseName(RSKSystem system, EditText editTextCustomerName) {
+    public OnClickListenerImageButtonChooseWorkDescription(RSKSystem system, EditText editTextWorkDescription) {
         this.system = system;
-        this.editTextCustomerName = editTextCustomerName;
+        this.editTextWorkDescription = editTextWorkDescription;
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View viewParam) {
         Dialog dialog = new Dialog(system.getMain().getDialogContext());
         dialog.setContentView(R.layout.select_project_data_dialog);
         dialog.setTitle("Erstellen");
@@ -39,9 +39,9 @@ public class OnClickListenerImageButtonChooseName implements View.OnClickListene
         buttonFinish = dialog.findViewById(R.id.buttonFinish);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(system.getContext(), R.layout.spinner_item);
-        adapter.addAll(system.getProjectManager().getSavedCustomerNames());
+        adapter.addAll(system.getProjectManager().getSavedWorkDescriptions());
         spinner.setAdapter(adapter);
-        spinner.setSelection(system.getProjectManager().getPositionOf(editTextCustomerName.getText().toString(), system.getProjectManager().getSavedCustomerNames()));
+        spinner.setSelection(system.getProjectManager().getPositionOf(editTextWorkDescription.getText().toString(), system.getProjectManager().getSavedWorkDescriptions()));
         setListeners(dialog);
         dialog.create();
         dialog.show();
@@ -50,7 +50,7 @@ public class OnClickListenerImageButtonChooseName implements View.OnClickListene
     private void setListeners(Dialog dialog) {
         buttonCancel.setOnClickListener((view) -> dialog.dismiss());
         buttonFinish.setOnClickListener((view) -> {
-            editTextCustomerName.setText(system.getProjectManager().getSavedCustomerNames().get(spinner.getSelectedItemPosition()));
+            editTextWorkDescription.setText(system.getProjectManager().getSavedWorkDescriptions().get(spinner.getSelectedItemPosition()));
             dialog.dismiss();
         });
     }

@@ -31,13 +31,16 @@ public class ItemTouchHelperRecyclerViewWorkDescriptions extends ItemTouchHelper
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         final int INDEX = viewHolder.getAdapterPosition();
+        String removedWorkDescription = "";
         ProjectManager projectManager = system.getProjectManager();
 
         if (direction == ItemTouchHelper.LEFT) {
+            removedWorkDescription = projectManager.getSavedWorkDescriptions().get(INDEX);
             projectManager.getSavedWorkDescriptions().remove(INDEX);
             recyclerAdapterWorkDescriptions.notifyDataSetChanged();
+            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
         }
-        system.makeShortToast("Arbeitsbeschreibung '" + projectManager.getSavedWorkDescriptions().get(INDEX) + "' entfernt");
+        system.makeShortToast("Arbeitsbeschreibung '" + removedWorkDescription + "' entfernt");
         recyclerAdapterWorkDescriptions.setSavedWorkDescriptions(system.getProjectManager().getSavedWorkDescriptions());
     }
 

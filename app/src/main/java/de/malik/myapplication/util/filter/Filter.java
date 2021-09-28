@@ -24,8 +24,8 @@ public class Filter {
                 }
             } else return projects;
         }
-        else if (value == FilterValue.ID) {
-            if (!(currentValue == FilterValue.ID)) {
+        else if (value == FilterValue.OLD_TO_NEW) {
+            if (!(currentValue == FilterValue.OLD_TO_NEW)) {
                 for (int i = projects.size() - 1; i >= 0; i--) {
                     sortedList.add(projects.get(i));
                 }

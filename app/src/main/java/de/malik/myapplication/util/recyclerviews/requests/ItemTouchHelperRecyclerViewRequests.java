@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.RequestsFragment;
+import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.ProjectManager;
 import de.malik.myapplication.util.customermanagement.Request;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -16,11 +17,13 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 public class ItemTouchHelperRecyclerViewRequests extends ItemTouchHelper.SimpleCallback {
 
     private ProjectManager projectManager;
+    private RSKSystem system;
     private RequestsFragment requestsFragment;
 
-    public ItemTouchHelperRecyclerViewRequests(int dragDirs, int swipeDirs, ProjectManager projectManager, RequestsFragment requestsFragment) {
+    public ItemTouchHelperRecyclerViewRequests(int dragDirs, int swipeDirs, RSKSystem system, RequestsFragment requestsFragment) {
         super(dragDirs, swipeDirs);
-        this.projectManager = projectManager;
+        this.system = system;
+        this.projectManager = system.getProjectManager();
         this.requestsFragment = requestsFragment;
     }
 
@@ -39,9 +42,10 @@ public class ItemTouchHelperRecyclerViewRequests extends ItemTouchHelper.SimpleC
             projectManager.getRequests().remove(INDEX);
             requestsFragment.getRecyclerAdapterRequests().notifyDataSetChanged();
             Snackbar.make(requestsFragment.getRecyclerView(), "Anfrage von \"" + deletedRequest.getName() + "\" gelöscht", Snackbar.LENGTH_LONG)
-                    .setAction("Rückgängig machen", new OnClickListenerUndoDeleteRequest(INDEX, deletedRequest, projectManager, requestsFragment)).show();
+                    .setAction("Rückgängig machen", new OnClickListenerUndoDeleteRequest(INDEX, deletedRequest, system, requestsFragment)).show();
         }
         requestsFragment.getRecyclerAdapterRequests().setRequests(projectManager.getRequests());
+        system.getFileManager().getPrinter().reprintFiles(projectManager);
     }
 
     @Override

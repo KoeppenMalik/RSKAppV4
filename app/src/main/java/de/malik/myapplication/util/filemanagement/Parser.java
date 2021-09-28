@@ -81,17 +81,4 @@ public class Parser {
         }
         return requests;
     }
-
-    public static ArrayList<String> parseStrings(ArrayList<String> lines) {
-        ArrayList<String> strings = new ArrayList<>();
-        if (lines.size() == 0) {
-            return strings;
-        }
-        String[] splitStrings = null;
-        for (String line : lines) {
-            splitStrings = line.split(RSKFileManager.SPLIT_REGEX);
-        }
-        strings.addAll(Arrays.asList(splitStrings));
-        return strings;
-    }
 }

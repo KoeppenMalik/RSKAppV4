@@ -17,10 +17,8 @@ public class Printer {
                 String fileName = RSKFileManager.FILE_NAMES[i];
                 FileManager.getPrinter().print(FileManager.CREATED_FILES.get(fileName), false, dataLists.get(i));
             }
-            String record = projectManager.convertSavedProjectDataToPrintableString(projectManager.getSavedCustomerNames());
-            FileManager.getPrinter().print(FileManager.CREATED_FILES.get(RSKFileManager.FILE_NAMES[5]), false, record);
-            record = projectManager.convertSavedProjectDataToPrintableString(projectManager.getSavedWorkDescriptions());
-            FileManager.getPrinter().print(FileManager.CREATED_FILES.get(RSKFileManager.FILE_NAMES[6]), false, record);
+            FileManager.getPrinter().print(FileManager.CREATED_FILES.get(RSKFileManager.FILE_NAMES[5]), false, projectManager.getSavedCustomerNames());
+            FileManager.getPrinter().print(FileManager.CREATED_FILES.get(RSKFileManager.FILE_NAMES[6]), false, projectManager.getSavedWorkDescriptions());
         } catch (IOException ex) {
             ex.printStackTrace();
         }

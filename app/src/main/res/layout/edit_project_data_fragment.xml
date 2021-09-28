@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     android:background="@color/grey">
 
+    <ImageButton
+        android:id="@+id/imageButtonChooseWorkDescription"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextWorkDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editTextWorkDescription"
+        app:srcCompat="@drawable/ic_add" />
+
     <TextView
         android:id="@+id/textViewCurrentName"
         android:layout_width="wrap_content"
@@ -138,15 +149,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/buttonFinish" />
 
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/editTextWorkDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:textColor="@android:color/white"
         app:backgroundTint="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonChooseWorkDescription"
         app:layout_constraintStart_toStartOf="@+id/editTextName"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 

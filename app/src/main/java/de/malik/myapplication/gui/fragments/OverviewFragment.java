@@ -45,8 +45,8 @@ public class OverviewFragment extends Fragment {
 
     private void createComponents() {
         buttonAddCustomer = v.findViewById(R.id.buttonAddCustomer);
-        viewRecentlyVisitedCustomer = v.findViewById(R.id.layoutRecentlyVisitedCustomer);
-        viewArchivedCustomers = v.findViewById(R.id.layoutArchivedCostumers);
+        viewRecentlyVisitedCustomer = v.findViewById(R.id.layoutRecentlyVisitedProject);
+        viewArchivedCustomers = v.findViewById(R.id.layoutArchivedProjects);
         viewRequests = v.findViewById(R.id.layoutRequests);
         textViewRecentlyVisitedCustomer = v.findViewById(R.id.textViewRecentlyVisitedCustomer);
         buttonSavedCustomerNames = v.findViewById(R.id.buttonSavedCustomerNames);
@@ -58,7 +58,7 @@ public class OverviewFragment extends Fragment {
         viewRecentlyVisitedCustomer.setOnClickListener(new OnClickListenerViewRecentlyVisitedCustomer(system));
         viewArchivedCustomers.setOnClickListener(new OnClickListenerViewArchivedCustomers(system));
         viewRequests.setOnClickListener(new OnClickListenerViewRequests(system));
-        buttonSavedCustomerNames.setOnClickListener((View v) -> system.replaceCurrentFragmentWith(new CustomerNamesFragment(system), R.anim.nav_default_enter_anim));
+        buttonSavedCustomerNames.setOnClickListener((View v) -> system.replaceCurrentFragmentWith(new ProjectNamesFragment(system), R.anim.nav_default_enter_anim));
         buttonSavedWorkDescriptions.setOnClickListener((View v) -> system.replaceCurrentFragmentWith(new WorkDescriptionsFragment(system), R.anim.nav_default_enter_anim));
     }
 }
