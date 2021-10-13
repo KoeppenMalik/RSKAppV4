@@ -19,12 +19,10 @@ public class OnClickListenerButtonSetDate implements View.OnClickListener, DateP
 
     private RSKSystem system;
     private EditText editTextDate;
-    private Request request;
 
-    public OnClickListenerButtonSetDate(RSKSystem system, EditText editTextDate, Request request) {
+    public OnClickListenerButtonSetDate(RSKSystem system, EditText editTextDate) {
         this.system = system;
         this.editTextDate = editTextDate;
-        this.request = request;
     }
 
     @Override

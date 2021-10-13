@@ -10,7 +10,7 @@ import de.malik.mylibrary.managers.FileManager;
 public class RSKFileManager {
 
     public static final String COMMENT_PREFIX = "##";
-    public static final String SPLIT_REGEX = ",";
+    public static final String SPLIT_REGEX = "  ";
     public static final String[] FILE_NAMES = {
             "currentProjects.csv", "archivedProjects.csv",
             "currentProjectsPauses.csv", "archivedProjectsPauses.csv",
@@ -34,6 +34,9 @@ public class RSKFileManager {
         for (String fileName : FILE_NAMES)
             FileManager.createFile(fileName, folder);
         FileManager.createFile("temp.csv", folder);
+//        for (String s : FILE_NAMES) {
+//            FileManager.CREATED_FILES.get(s).delete();
+//        }
     }
 
     public Printer getPrinter() {

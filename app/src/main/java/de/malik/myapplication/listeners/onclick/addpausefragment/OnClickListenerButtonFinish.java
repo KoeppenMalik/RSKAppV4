@@ -36,7 +36,7 @@ public class OnClickListenerButtonFinish implements View.OnClickListener {
         if (hoursStr.isEmpty()) {
             hoursStr = "0";
         }
-        else if (minutesStr.isEmpty()) {
+        if (minutesStr.isEmpty()) {
             minutesStr = "0";
         }
         hours = Integer.parseInt(hoursStr);

@@ -25,6 +25,10 @@ public class OnClickListenerImageButtonChooseName implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        if (system.getProjectManager().getSavedCustomerNames().size() == 0) {
+            system.makeShortToast("Keine Projektnamen");
+            return;
+        }
         Dialog dialog = new Dialog(system.getMain().getDialogContext());
         dialog.setContentView(R.layout.select_project_data_dialog);
         dialog.setTitle("Erstellen");

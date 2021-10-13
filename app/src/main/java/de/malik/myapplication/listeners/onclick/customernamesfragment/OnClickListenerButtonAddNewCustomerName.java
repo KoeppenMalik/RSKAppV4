@@ -21,7 +21,7 @@ public class OnClickListenerButtonAddNewCustomerName implements View.OnClickList
     @Override
     public void onClick(View paramView) {
         Dialog dialog = new Dialog(system.getMain().getDialogContext());
-        dialog.setContentView(R.layout.add_customer_name_dialog);
+        dialog.setContentView(R.layout.add_project_name_dialog);
         dialog.setTitle("Erstellen");
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());

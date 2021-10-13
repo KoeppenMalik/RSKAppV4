@@ -8,11 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+
 import androidx.fragment.app.Fragment;
 
 import java.text.ParseException;
 
 import de.malik.myapplication.R;
+import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerImageButtonChooseName;
+import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerImageButtonChooseWorkDescription;
 import de.malik.myapplication.listeners.onclick.requestfragment.OnClickListenerButtonConvertToCustomers;
 import de.malik.myapplication.listeners.onclick.requestfragment.OnClickListenerButtonCancel;
 import de.malik.myapplication.listeners.onclick.requestfragment.OnClickListenerButtonFinish;
@@ -26,6 +30,7 @@ public class RequestFragment extends Fragment {
     private RSKSystem system;
     private View v;
     private EditText editTextName, editTextDate, editTextWorkDescription;
+    private ImageButton imageButtonSetRequestName, imageButtonSetRequestDescription;
     private Button buttonFinish, buttonSetDate, buttonCancel, buttonAddToCustomers;
     private Request request;
 
@@ -58,6 +63,8 @@ public class RequestFragment extends Fragment {
     }
 
     private void createComponents() {
+        imageButtonSetRequestName = v.findViewById(R.id.imageButtonSetRequestName);
+        imageButtonSetRequestDescription = v.findViewById(R.id.imageButtonSetRequestDescription);
         editTextName = v.findViewById(R.id.editTextName);
         editTextDate = v.findViewById(R.id.editTextDate);
         editTextWorkDescription = v.findViewById(R.id.editTextWorkDescription);
@@ -68,8 +75,10 @@ public class RequestFragment extends Fragment {
     }
 
     private void setListeners() {
+        imageButtonSetRequestName.setOnClickListener(new OnClickListenerImageButtonChooseName(system, editTextName));
+        imageButtonSetRequestDescription.setOnClickListener(new OnClickListenerImageButtonChooseWorkDescription(system, editTextWorkDescription));
         buttonFinish.setOnClickListener(new OnClickListenerButtonFinish(system, request, this));
-        buttonSetDate.setOnClickListener(new OnClickListenerButtonSetDate(system, editTextDate, request));
+        buttonSetDate.setOnClickListener(new OnClickListenerButtonSetDate(system, editTextDate));
         buttonCancel.setOnClickListener(new OnClickListenerButtonCancel(system));
         buttonAddToCustomers.setOnClickListener(new OnClickListenerButtonConvertToCustomers(system, request));
     }

@@ -25,6 +25,10 @@ public class OnClickListenerImageButtonChooseWorkDescription implements View.OnC
 
     @Override
     public void onClick(View viewParam) {
+        if (system.getProjectManager().getSavedWorkDescriptions().size() == 0) {
+            system.makeShortToast("Keine Projektbeschreibungen");
+            return;
+        }
         Dialog dialog = new Dialog(system.getMain().getDialogContext());
         dialog.setContentView(R.layout.select_project_data_dialog);
         dialog.setTitle("Erstellen");
