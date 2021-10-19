@@ -2,9 +2,6 @@
 
 package de.malik.myapplication.util.customermanagement;
 
-
-import android.util.Log;
-
 import de.malik.myapplication.util.filemanagement.Parser;
 import de.malik.myapplication.util.filemanagement.RSKFileManager;
 import de.malik.mylibrary.managers.FileManager;
@@ -51,6 +48,84 @@ public class ProjectManager {
         }
     }
 
+    public static ArrayList<Long> getAllIds(ArrayList<Project> projects) {
+        ArrayList<Long> allIds = new ArrayList<>();
+        for (Project project : projects) {
+            allIds.add(project.getId());
+        }
+        return allIds;
+    }
+
+    public static ArrayList<Project> assignProjectsToIds(ArrayList<Long> ids, ArrayList<Project> projects) {
+        ArrayList<Project> assignedProjects = new ArrayList<>();
+        ArrayList<Long> ids1 = new ArrayList<>(ids);
+        for (long id : ids) {
+            for (Project project : projects) {
+                if (ids1.contains(id)) {
+                    if (id == project.getId()) {
+                        assignedProjects.add(project);
+                        ids1.remove(id);
+                        projects.remove(project);
+                        break;
+                    }
+                }
+            }
+        }
+        return assignedProjects;
+    }
+
+    public static ArrayList<String> getAllNames(ArrayList<Project> projects) {
+        ArrayList<String> allNames = new ArrayList<>();
+        for (Project project : projects) {
+            allNames.add(project.getName());
+        }
+        return allNames;
+    }
+
+    public static ArrayList<Project> assignProjectsToNames(ArrayList<String> names, ArrayList<Project> projects) {
+        ArrayList<Project> assignedProjects = new ArrayList<>();
+        ArrayList<String> names1 = new ArrayList<>(names);
+        for (String name : names) {
+            for (Project project : projects) {
+                if (names1.contains(name)) {
+                    if (name.equals(project.getName())) {
+                        assignedProjects.add(project);
+                        names1.remove(name);
+                        projects.remove(project);
+                        break;
+                    }
+                }
+            }
+        }
+        return assignedProjects;
+    }
+
+    public static ArrayList<String> getAllDates(ArrayList<Project> projects) {
+        ArrayList<String> dates = new ArrayList<>();
+        for (Project project : projects) {
+            dates.add(project.getDate());
+        }
+        return dates;
+    }
+
+    public static ArrayList<Project> assignProjectsToDates(ArrayList<String> dates, ArrayList<Project> projects) {
+        ArrayList<Project> assignedProjects = new ArrayList<>();
+        ArrayList<String> dates1 = new ArrayList<>(dates);
+        for (String date : dates) {
+            for (Project project : projects) {
+                if (dates1.contains(date)) {
+                    if (date.equals(project.getDate())) {
+                        assignedProjects.add(project);
+                        dates1.remove(date);
+                        projects.remove(project);
+                        break;
+                    }
+                }
+            }
+        }
+        return assignedProjects;
+    }
+
     public ArrayList<ArrayList<String>> getPrintableDataLists() {
         ArrayList<ArrayList<String>> dataLists = new ArrayList<>();
         ArrayList<String> projects = new ArrayList<>(),
@@ -67,7 +142,6 @@ public class ProjectManager {
         }
         for (Pause pause : getPauses()) {
             pauses.add(pause.getRecord());
-            Log.i("TAG", pause.getRecord());
         }
         for (Pause archivedPause : getArchivedPauses()) {
             archivedPauses.add(archivedPause.getRecord());

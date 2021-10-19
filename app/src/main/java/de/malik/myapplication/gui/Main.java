@@ -1,6 +1,7 @@
 package de.malik.myapplication.gui;
 
 import android.content.Context;
+import android.os.Environment;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import de.malik.myapplication.R;
@@ -23,6 +26,8 @@ import de.malik.myapplication.util.filemanagement.Printer;
 
 public class Main extends AppCompatActivity {
 
+    private Fragment currentFragment;
+
     private RSKSystem system;
     private BottomNavigationView bottomNav;
     private SearchView searchView;
@@ -35,10 +40,10 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dialogContext = Main.this;
         getSupportActionBar().setTitle(Html.fromHtml("<font color=\"" + getColor(android.R.color.white) + "\">" + getString(R.string.title) + "</font>"));
-        RSKFileManager fileManager = new RSKFileManager(getFilesDir().getPath(), new Printer());
+        RSKFileManager fileManager = new RSKFileManager(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getPath(), new Printer());
         ProjectManager projectManager = new ProjectManager();
         system = new RSKSystem(this, projectManager, fileManager);
-        system.replaceCurrentFragmentWith(new OverviewFragment(system), RSKSystem.NO_ANIM);
+        system.replaceCurrentFragmentWith(currentFragment = new OverviewFragment(system), RSKSystem.NO_ANIM);
         handleGui();
     }
 
@@ -71,7 +76,7 @@ public class Main extends AppCompatActivity {
     }
 
     private void setListeners() {
-        bottomNav.setOnNavigationItemSelectedListener(new OnNavigationItemSelectedListenerBottomNav(system));
+        bottomNav.setOnNavigationItemSelectedListener(new OnNavigationItemSelectedListenerBottomNav(system, currentFragment));
     }
 
     MenuItem.OnMenuItemClickListener menuItemOnClickListener = (menuItem) -> {

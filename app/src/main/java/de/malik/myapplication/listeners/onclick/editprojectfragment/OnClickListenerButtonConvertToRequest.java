@@ -33,7 +33,7 @@ public class OnClickListenerButtonConvertToRequest implements View.OnClickListen
         projectManager.getRequests().add(request);
         system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
         system.replaceCurrentFragmentWith(new RequestFragment(system, request), R.anim.slide_left);
-        Snackbar.make(system.getMain().getBottomNav(), project.getName() + " wurde zu Anfrage konvertiert", Snackbar.LENGTH_LONG)
+        Snackbar.make(system.getMain().getBottomNav(), project.getName() + " wurde zu Planung konvertiert", Snackbar.LENGTH_LONG)
         .setAction("Rückgängig machen", (View v) -> {
             projectManager.getRequests().remove(request);
             projectManager.getProjects().add(project);

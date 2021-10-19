@@ -27,7 +27,7 @@ public class RequestsFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerAdapterRequests recyclerAdapterRequests;
     private ItemTouchHelper itemTouchHelper;
-    private Button buttonSave, buttonAddRequest, buttonBack;
+    private Button buttonAddRequest, buttonBack;
 
     public RequestsFragment(RSKSystem system) {
         this.system = system;
@@ -52,13 +52,11 @@ public class RequestsFragment extends Fragment {
         recyclerView = v.findViewById(R.id.recyclerView);
         recyclerAdapterRequests = new RecyclerAdapterRequests(system.getProjectManager().getRequests(), system);
         itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperRecyclerViewRequests(0, ItemTouchHelper.LEFT, system, this));
-        buttonSave = v.findViewById(R.id.buttonSave);
         buttonAddRequest = v.findViewById(R.id.buttonAddRequest);
         buttonBack = v.findViewById(R.id.buttonBack);
     }
 
     private void setListeners() {
-        buttonSave.setOnClickListener(new OnClickListenerButtonSave(system));
         buttonBack.setOnClickListener(new ListenerSwitchFragment(new OverviewFragment(system), system, R.anim.slide_down));
         buttonAddRequest.setOnClickListener(new OnClickListenerButtonAddRequest(system));
         itemTouchHelper.attachToRecyclerView(recyclerView);

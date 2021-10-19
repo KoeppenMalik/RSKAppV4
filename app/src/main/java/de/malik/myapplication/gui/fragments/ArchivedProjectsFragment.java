@@ -23,7 +23,7 @@ public class ArchivedProjectsFragment extends Fragment {
 
     private RSKSystem system;
     private View v;
-    private Button buttonSave, buttonBack;
+    private Button buttonBack;
     private RecyclerView recyclerView;
     private RecyclerAdapterProjects recyclerAdapter;
 
@@ -49,14 +49,12 @@ public class ArchivedProjectsFragment extends Fragment {
         recyclerAdapter = new RecyclerAdapterProjects(system.getProjectManager().getArchivedProjects(), system);
         recyclerView = v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(system.getContext()));
-        buttonSave = v.findViewById(R.id.buttonSave);
         buttonBack = v.findViewById(R.id.buttonBack);
     }
 
     private void setListeners() {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperRecyclerViewArchivedProjects(system, this, 0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT));
         itemTouchHelper.attachToRecyclerView(recyclerView);
-        buttonSave.setOnClickListener(new OnClickListenerButtonSave(system));
         buttonBack.setOnClickListener(new ListenerSwitchFragment(new OverviewFragment(system), system, R.anim.slide_down));
     }
 

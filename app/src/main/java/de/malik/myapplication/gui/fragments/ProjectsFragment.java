@@ -24,7 +24,7 @@ public class ProjectsFragment extends Fragment {
     private RSKSystem system;
     private RecyclerView recyclerView;
     private RecyclerAdapterProjects recyclerAdapterProjects;
-    private Button buttonSave, buttonFilter;
+    private Button buttonFilter;
 
     public ProjectsFragment(RSKSystem system) {
         this.system = system;
@@ -53,12 +53,10 @@ public class ProjectsFragment extends Fragment {
     private void createComponents() {
         buttonFilter = v.findViewById(R.id.buttonFilter);
         recyclerView = v.findViewById(R.id.recyclerView);
-        buttonSave = v.findViewById(R.id.buttonSave);
     }
 
     private void setListeners() {
         buttonFilter.setOnClickListener(new OnClickListenerButtonFilterProjects(system, recyclerAdapterProjects));
-        buttonSave.setOnClickListener(new OnClickListenerButtonSave(system));
     }
 
     public RecyclerView getRecyclerView() {

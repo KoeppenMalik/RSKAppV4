@@ -9,6 +9,10 @@ import androidx.annotation.AnimatorRes;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import java.util.ArrayList;
+import java.util.Date;
+
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.Main;
 import de.malik.myapplication.gui.fragments.ErrorFragment;
@@ -23,7 +27,7 @@ public class RSKSystem {
     public static final int NO_ANIM = -1;
 
     private Filter[] filters;
-    private Filter currentFilter = new Filter("ALT ZU NEU", FilterValue.OLD_TO_NEW);
+    private Filter currentFilter;
     private Main main;
     private ProjectManager projectManager;
     private RSKFileManager fileManager;
@@ -34,9 +38,11 @@ public class RSKSystem {
         this.projectManager = projectManager;
         this.fileManager = fileManager;
         filters = new Filter[] {
-                new Filter("NEU ZU ALT", FilterValue.NEW_TO_OLD),
-                new Filter("ALT ZU NEU", FilterValue.OLD_TO_NEW)
+                new Filter("Erstellt (Neu zu alt)", FilterValue.CREATED),
+                new Filter("Name (A -Z)", FilterValue.NAME),
+                new Filter("Datum (Neu zu alt)", FilterValue.DATE)
         };
+        currentFilter = filters[0];
     }
 
     public Main getMain() {

@@ -36,9 +36,9 @@ public class ProjectFragment extends Fragment {
     private Project project;
     private RecyclerAdapterPauses recyclerAdapterPauses;
     private TextView textViewCurrentName, textViewDate, textViewWorkDescription;
-    private ImageButton imageButtonEditData;
+    private ImageButton imageButtonEditData, buttonAddPause;
     private RecyclerView recyclerView;
-    private Button buttonSetStartTime, buttonSetStopTime, buttonAddPause;
+    private Button buttonSetStartTime, buttonSetStopTime;
     private EditText editTextStartTime, editTextStopTime, editTextTotalTime;
 
     public ProjectFragment(RSKSystem system, Project project) {

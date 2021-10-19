@@ -13,25 +13,24 @@ import de.malik.myapplication.util.RSKSystem;
 public class OnNavigationItemSelectedListenerBottomNav implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private RSKSystem system;
+    private Fragment currentFragment;
 
-    public OnNavigationItemSelectedListenerBottomNav(RSKSystem system) {
+    public OnNavigationItemSelectedListenerBottomNav(RSKSystem system, Fragment currentFragment) {
         this.system = system;
+        this.currentFragment = currentFragment;
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
-        Fragment currentFragment = null;
         int anim = 0;
-
-        if (menuItem.getItemId() == R.id.tabOverview) {
+        if (menuItem.getItemId() == R.id.tabOverview && !(currentFragment instanceof OverviewFragment)) {
             currentFragment = new OverviewFragment(system);
             anim = R.anim.slide_right;
         }
-        else if (menuItem.getItemId() == R.id.tabProjects) {
+        else if (menuItem.getItemId() == R.id.tabProjects && !(currentFragment instanceof ProjectsFragment)) {
             currentFragment = new ProjectsFragment(system);
             anim = R.anim.slide_left;
         }
-        // --- replacing and adding right animations ---
         system.replaceCurrentFragmentWith(currentFragment, anim);
         return true;
     }

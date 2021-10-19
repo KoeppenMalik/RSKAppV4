@@ -1,23 +1,19 @@
 package de.malik.myapplication.listeners.onclick.projectsfragment;
 
 import android.app.Dialog;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
 
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.ProjectsFragment;
-import de.malik.myapplication.gui.fragments.WorkDescriptionsFragment;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Project;
 import de.malik.myapplication.util.filter.Filter;
-import de.malik.myapplication.util.filter.FilterValue;
 import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProjects;
 
 public class OnClickListenerButtonFilterProjects implements View.OnClickListener {
@@ -57,7 +53,7 @@ public class OnClickListenerButtonFilterProjects implements View.OnClickListener
         buttonCancel.setOnClickListener((view) -> dialog.dismiss());
         buttonFinish.setOnClickListener((view) -> {
             Filter newFilter = filters[spinner.getSelectedItemPosition()];
-            ArrayList<Project> filteredProjects = Filter.sort(system.getCurrentFilter().getValue(), newFilter.getValue(), system.getProjectManager().getProjects());
+            ArrayList<Project> filteredProjects = Filter.sortProjects(system.getCurrentFilter().getValue(), newFilter.getValue(), system.getProjectManager().getProjects());
             system.setCurrentFilter(newFilter);
             system.getProjectManager().setProjects(filteredProjects);
             recyclerAdapterProjects.notifyDataSetChanged();
@@ -65,7 +61,6 @@ public class OnClickListenerButtonFilterProjects implements View.OnClickListener
             dialog.dismiss();
             system.replaceCurrentFragmentWith(new ProjectsFragment(system), RSKSystem.NO_ANIM);
         });
-        Log.i("TAG", system.getCurrentFilter() + "");
         dialog.create();
         dialog.show();
     }
