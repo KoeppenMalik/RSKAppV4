@@ -45,4 +45,6 @@
     <string name="filter">Filter</string>
     <string name="edit">Anpassen</string>
     <string name="choose">Auswählen</string>
+    <string name="allow">Erlauben</string>
+    <string name="deny">Ablehnen</string>
 </resources>

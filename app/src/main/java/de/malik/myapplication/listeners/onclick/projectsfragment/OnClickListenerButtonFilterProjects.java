@@ -35,7 +35,7 @@ public class OnClickListenerButtonFilterProjects implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        Dialog dialog = new Dialog(system.getMain().getDialogContext());
+        Dialog dialog = new Dialog(system.getMainActivity().getDialogContext());
         dialog.setContentView(R.layout.select_filter_layout);
         dialog.setTitle("Filter");
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

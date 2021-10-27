@@ -10,7 +10,7 @@ import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.ProjectFragment;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Project;
-import de.malik.mylibrary.managers.TimeManager;
+import de.malik.myapplication.util.customermanagement.TimeManager;
 
 public class OnClickListenerButtonAddCustomer implements View.OnClickListener {
 

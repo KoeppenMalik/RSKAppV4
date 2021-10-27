@@ -13,7 +13,6 @@ import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Project;
 import de.malik.myapplication.util.customermanagement.ProjectManager;
 import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProjects;
-import de.malik.mylibrary.managers.FileManager;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ItemTouchHelperRecyclerViewProjects extends ItemTouchHelper.SimpleCallback {

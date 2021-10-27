@@ -10,11 +10,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import de.malik.myapplication.R;
-import de.malik.myapplication.gui.Main;
+import de.malik.myapplication.gui.MainActivity;
 import de.malik.myapplication.gui.fragments.ErrorFragment;
 import de.malik.myapplication.util.customermanagement.Project;
 import de.malik.myapplication.util.customermanagement.ProjectManager;
@@ -28,13 +25,13 @@ public class RSKSystem {
 
     private Filter[] filters;
     private Filter currentFilter;
-    private Main main;
+    private MainActivity mainActivity;
     private ProjectManager projectManager;
     private RSKFileManager fileManager;
     private Project recentlyVisitedProject = null;
 
-    public RSKSystem(Main main, ProjectManager projectManager, RSKFileManager fileManager) {
-        this.main = main;
+    public RSKSystem(MainActivity mainActivity, ProjectManager projectManager, RSKFileManager fileManager) {
+        this.mainActivity = mainActivity;
         this.projectManager = projectManager;
         this.fileManager = fileManager;
         filters = new Filter[] {
@@ -45,8 +42,8 @@ public class RSKSystem {
         currentFilter = filters[0];
     }
 
-    public Main getMain() {
-        return main;
+    public MainActivity getMainActivity() {
+        return mainActivity;
     }
 
     /**
@@ -65,7 +62,7 @@ public class RSKSystem {
      * @param text the text that will be displayed
      */
     public void makeShortToast(String text) {
-        Toast.makeText(main, text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mainActivity, text, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -73,7 +70,7 @@ public class RSKSystem {
      * @return the main activity context
      */
     public Context getContext() {
-        return main.getApplicationContext();
+        return mainActivity.getApplicationContext();
     }
 
     /**
@@ -81,7 +78,7 @@ public class RSKSystem {
      * @return the support fragment manager of the main activity
      */
     public FragmentManager getSupportFragmentManager() {
-        return main.getSupportFragmentManager();
+        return mainActivity.getSupportFragmentManager();
     }
 
     /**
@@ -89,7 +86,7 @@ public class RSKSystem {
      * @return the search view of the main activity
      */
     public SearchView getMainActivitySearchView() {
-        return main.getSearchView();
+        return mainActivity.getSearchView();
     }
 
     /**

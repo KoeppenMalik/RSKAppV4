@@ -25,9 +25,9 @@ import de.malik.myapplication.listeners.onclick.projectfragment.OnClickListenerI
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Pause;
 import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.myapplication.util.customermanagement.TimeManager;
 import de.malik.myapplication.util.recyclerviews.pauses.ItemTouchHelperRecyclerViewPauses;
 import de.malik.myapplication.util.recyclerviews.pauses.RecyclerAdapterPauses;
-import de.malik.mylibrary.managers.TimeManager;
 
 public class ProjectFragment extends Fragment {
 

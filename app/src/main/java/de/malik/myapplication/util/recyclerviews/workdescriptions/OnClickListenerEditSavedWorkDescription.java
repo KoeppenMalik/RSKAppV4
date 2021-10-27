@@ -22,7 +22,7 @@ public class OnClickListenerEditSavedWorkDescription implements View.OnClickList
 
     @Override
     public void onClick(View viewParam) {
-        Dialog dialog = new Dialog(system.getMain().getDialogContext());
+        Dialog dialog = new Dialog(system.getMainActivity().getDialogContext());
         dialog.setContentView(R.layout.edit_saved_project_data);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());

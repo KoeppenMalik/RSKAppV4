@@ -12,8 +12,7 @@ import java.text.ParseException;
 
 import de.malik.myapplication.util.DatePickerFragment;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Request;
-import de.malik.mylibrary.managers.TimeManager;
+import de.malik.myapplication.util.customermanagement.TimeManager;
 
 public class OnClickListenerButtonSetDate implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 

@@ -20,7 +20,7 @@ public class OnClickListenerButtonAddNewWorkDescription implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        Dialog dialog = new Dialog(system.getMain().getDialogContext());
+        Dialog dialog = new Dialog(system.getMainActivity().getDialogContext());
         dialog.setContentView(R.layout.add_work_description_dialog);
         dialog.setTitle("Erstellen");
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

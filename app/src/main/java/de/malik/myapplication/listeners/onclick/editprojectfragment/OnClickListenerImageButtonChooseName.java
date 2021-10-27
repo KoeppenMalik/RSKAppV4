@@ -29,7 +29,7 @@ public class OnClickListenerImageButtonChooseName implements View.OnClickListene
             system.makeShortToast("Keine Projektnamen");
             return;
         }
-        Dialog dialog = new Dialog(system.getMain().getDialogContext());
+        Dialog dialog = new Dialog(system.getMainActivity().getDialogContext());
         dialog.setContentView(R.layout.select_project_data_dialog);
         dialog.setTitle("Erstellen");
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

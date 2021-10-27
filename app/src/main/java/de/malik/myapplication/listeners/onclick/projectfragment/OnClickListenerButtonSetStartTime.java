@@ -14,7 +14,7 @@ import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Pause;
 import de.malik.myapplication.util.TimePickerFragment;
 import de.malik.myapplication.util.customermanagement.Project;
-import de.malik.mylibrary.managers.TimeManager;
+import de.malik.myapplication.util.customermanagement.TimeManager;
 
 public class OnClickListenerButtonSetStartTime implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
 

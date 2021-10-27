@@ -23,7 +23,7 @@ import de.malik.myapplication.listeners.onclick.requestfragment.OnClickListenerB
 import de.malik.myapplication.listeners.onclick.requestfragment.OnClickListenerButtonSetDate;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Request;
-import de.malik.mylibrary.managers.TimeManager;
+import de.malik.myapplication.util.customermanagement.TimeManager;
 
 public class RequestFragment extends Fragment {
 

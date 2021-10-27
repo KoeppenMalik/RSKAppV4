@@ -3,7 +3,6 @@
 package de.malik.myapplication.util.customermanagement;
 
 import de.malik.myapplication.util.filemanagement.RSKFileManager;
-import de.malik.mylibrary.managers.TimeManager;
 
 import java.util.ArrayList;
 import java.util.Date;

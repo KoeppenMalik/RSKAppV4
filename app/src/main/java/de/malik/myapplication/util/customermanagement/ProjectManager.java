@@ -4,8 +4,7 @@ package de.malik.myapplication.util.customermanagement;
 
 import de.malik.myapplication.util.filemanagement.Parser;
 import de.malik.myapplication.util.filemanagement.RSKFileManager;
-import de.malik.mylibrary.managers.FileManager;
-import de.malik.mylibrary.utils.UtilsLibFileReader;
+import de.malik.myapplication.util.filemanagement.RSKReader;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,27 +21,26 @@ public class ProjectManager {
     public ProjectManager() {
         ArrayList<String> lines;
         ArrayList<Pause> pauses;
-        UtilsLibFileReader reader = FileManager.getReader();
-        Map<String, File> createdFiles = FileManager.CREATED_FILES;
+        Map<String, File> createdFiles = RSKFileManager.CREATED_FILES;
         String[] fileNames = RSKFileManager.FILE_NAMES;
         try {
             // current projects
-            lines = FileManager.getReader().readLines(createdFiles.get(fileNames[2]));
+            lines = RSKReader.readLines(createdFiles.get(fileNames[2]));
             pauses = Parser.parsePauses(lines);
-            lines = FileManager.getReader().readLines(createdFiles.get(fileNames[0]));
+            lines = RSKReader.readLines(createdFiles.get(fileNames[0]));
             projects = Parser.parseProjects(lines, pauses);
             // archived projects
-            lines = reader.readLines(createdFiles.get(fileNames[3]));
+            lines = RSKReader.readLines(createdFiles.get(fileNames[3]));
             pauses = Parser.parsePauses(lines);
-            lines = reader.readLines(createdFiles.get(fileNames[1]));
+            lines = RSKReader.readLines(createdFiles.get(fileNames[1]));
             archivedProjects = Parser.parseProjects(lines, pauses);
             // requests
-            lines = reader.readLines(createdFiles.get(fileNames[4]));
+            lines = RSKReader.readLines(createdFiles.get(fileNames[4]));
             requests = Parser.parseRequests(lines);
             // saved project names
-            savedCustomerNames = reader.readLines(createdFiles.get(fileNames[5]));
+            savedCustomerNames = RSKReader.readLines(createdFiles.get(fileNames[5]));
             // saved work descriptions
-            savedWorkDescriptions = reader.readLines(createdFiles.get(fileNames[6]));
+            savedWorkDescriptions = RSKReader.readLines(createdFiles.get(fileNames[6]));
         } catch (IOException ex) {
             ex.printStackTrace();
         }

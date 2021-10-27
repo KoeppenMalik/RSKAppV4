@@ -10,7 +10,7 @@ import java.util.Locale;
 
 import de.malik.myapplication.util.customermanagement.Project;
 import de.malik.myapplication.util.customermanagement.ProjectManager;
-import de.malik.mylibrary.managers.TimeManager;
+import de.malik.myapplication.util.customermanagement.TimeManager;
 
 public class Filter {
 

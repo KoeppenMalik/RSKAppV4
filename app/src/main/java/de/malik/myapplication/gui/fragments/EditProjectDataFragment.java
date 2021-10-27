@@ -31,7 +31,7 @@ import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListe
 import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerImageButtonChooseWorkDescription;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Project;
-import de.malik.mylibrary.managers.TimeManager;
+import de.malik.myapplication.util.customermanagement.TimeManager;
 
 public class EditProjectDataFragment extends Fragment {
 

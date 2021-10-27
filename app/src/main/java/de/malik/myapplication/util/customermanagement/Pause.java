@@ -5,7 +5,6 @@ package de.malik.myapplication.util.customermanagement;
 import java.util.Date;
 
 import de.malik.myapplication.util.filemanagement.RSKFileManager;
-import de.malik.mylibrary.managers.TimeManager;
 
 public class Pause {
 

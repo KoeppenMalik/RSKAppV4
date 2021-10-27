@@ -5,14 +5,13 @@ package de.malik.myapplication.util.recyclerviews.projects;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filterable;
 import androidx.recyclerview.widget.RecyclerView;
 import de.malik.myapplication.R;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Pause;
 import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.myapplication.util.customermanagement.TimeManager;
 import de.malik.myapplication.util.recyclerviews.projects.recyclerviewprojects.OnClickListenerViewHolderProjects;
-import de.malik.mylibrary.managers.TimeManager;
 
 import java.util.ArrayList;
 import java.util.Date;
