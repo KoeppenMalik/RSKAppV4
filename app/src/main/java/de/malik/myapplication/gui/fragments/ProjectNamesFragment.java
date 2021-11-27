@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import de.malik.myapplication.R;
-import de.malik.myapplication.listeners.onclick.OnClickListenerButtonBack;
+import de.malik.myapplication.listeners.onclick.ListenerSwitchFragment;
 import de.malik.myapplication.listeners.onclick.customernamesfragment.OnClickListenerButtonAddNewCustomerName;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.recyclerviews.customernames.ItemTouchHelperRecyclerViewCustomerNames;
 import de.malik.myapplication.util.recyclerviews.customernames.RecyclerAdapterCustomerNames;
 
-public class CustomerNamesFragment extends Fragment {
+public class ProjectNamesFragment extends Fragment {
 
     private View v;
     private RSKSystem system;
@@ -27,7 +27,7 @@ public class CustomerNamesFragment extends Fragment {
     private RecyclerAdapterCustomerNames recyclerAdapter;
     private ItemTouchHelper itemTouchHelper;
 
-    public CustomerNamesFragment(RSKSystem system) {
+    public ProjectNamesFragment(RSKSystem system) {
         this.system = system;
     }
 
@@ -56,7 +56,7 @@ public class CustomerNamesFragment extends Fragment {
 
     private void setListeners() {
         buttonAddNewCustomerName.setOnClickListener(new OnClickListenerButtonAddNewCustomerName(system));
-        buttonBack.setOnClickListener(new OnClickListenerButtonBack(system, R.anim.nav_default_enter_anim));
+        buttonBack.setOnClickListener(new ListenerSwitchFragment(new OverviewFragment(system), system, R.anim.nav_default_enter_anim));
     }
 
     public RecyclerAdapterCustomerNames getRecyclerAdapter() {

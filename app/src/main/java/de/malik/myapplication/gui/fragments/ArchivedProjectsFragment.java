@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import de.malik.myapplication.R;
-import de.malik.myapplication.listeners.onclick.OnClickListenerButtonBack;
-import de.malik.myapplication.listeners.onclick.OnClickListenerButtonSave;
+import de.malik.myapplication.listeners.onclick.ListenerSwitchFragment;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.recyclerviews.projects.recyclerviewarchivedprojects.ItemTouchHelperRecyclerViewArchivedProjects;
 import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProjects;
@@ -23,7 +22,7 @@ public class ArchivedProjectsFragment extends Fragment {
 
     private RSKSystem system;
     private View v;
-    private Button buttonSave, buttonBack;
+    private Button buttonBack;
     private RecyclerView recyclerView;
     private RecyclerAdapterProjects recyclerAdapter;
 
@@ -49,15 +48,13 @@ public class ArchivedProjectsFragment extends Fragment {
         recyclerAdapter = new RecyclerAdapterProjects(system.getProjectManager().getArchivedProjects(), system);
         recyclerView = v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(system.getContext()));
-        buttonSave = v.findViewById(R.id.buttonSave);
         buttonBack = v.findViewById(R.id.buttonBack);
     }
 
     private void setListeners() {
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperRecyclerViewArchivedProjects(system.getProjectManager(), this, 0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT));
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperRecyclerViewArchivedProjects(system, this, 0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT));
         itemTouchHelper.attachToRecyclerView(recyclerView);
-        buttonSave.setOnClickListener(new OnClickListenerButtonSave(system));
-        buttonBack.setOnClickListener(new OnClickListenerButtonBack(system, R.anim.slide_down));
+        buttonBack.setOnClickListener(new ListenerSwitchFragment(new OverviewFragment(system), system, R.anim.slide_down));
     }
 
     public RecyclerAdapterProjects getRecyclerAdapter() {

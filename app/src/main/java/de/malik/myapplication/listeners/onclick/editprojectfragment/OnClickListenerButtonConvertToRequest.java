@@ -2,8 +2,6 @@ package de.malik.myapplication.listeners.onclick.editprojectfragment;
 
 import android.view.View;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.google.android.material.snackbar.Snackbar;
 
 import de.malik.myapplication.R;
@@ -27,14 +25,15 @@ public class OnClickListenerButtonConvertToRequest implements View.OnClickListen
     @Override
     public void onClick(View viewParam) {
         ProjectManager projectManager = system.getProjectManager();
-        projectManager.getProjects().remove(project);
         Request request = new Request(projectManager.getNextRequestId(), project.getName(), project.getDate(), project.getWorkDescription());
         projectManager.getRequests().add(request);
+        system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
         system.replaceCurrentFragmentWith(new RequestFragment(system, request), R.anim.slide_left);
         Snackbar.make(system.getMain().getBottomNav(), project.getName() + " wurde zu Anfrage konvertiert", Snackbar.LENGTH_LONG)
         .setAction("Rückgängig machen", (View v) -> {
             projectManager.getRequests().remove(request);
             projectManager.getProjects().add(project);
+            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
             system.replaceCurrentFragmentWith(new ProjectsFragment(system), R.anim.slide_down);
         }).show();
     }

@@ -2,8 +2,10 @@
 
 package de.malik.myapplication.util.customermanagement;
 
+import java.util.Date;
+
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.filemanagement.FileManager;
+import de.malik.myapplication.util.filemanagement.RSKFileManager;
 
 public class Request {
 
@@ -22,11 +24,11 @@ public class Request {
      * @return a string with all information of the request divided by <code>FileManager.SPLIT_REGEX</code>
      */
     public String getRecord() {
-        return id + FileManager.SPLIT_REGEX + name + FileManager.SPLIT_REGEX + date + FileManager.SPLIT_REGEX + description;
+        return id + RSKFileManager.SPLIT_REGEX + name + RSKFileManager.SPLIT_REGEX + date + RSKFileManager.SPLIT_REGEX + description;
     }
 
     public Project toCustomer(RSKSystem system) {
-        return new Project(system.getProjectManager().getNextCustomerId(), name, Time.EMPTY_TIME, Time.EMPTY_TIME, date, description);
+        return new Project(system.getProjectManager().getNextCustomerId(), name, new Date(0), new Date(0), date, description);
     }
 
     public long getId() {

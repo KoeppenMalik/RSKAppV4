@@ -27,7 +27,7 @@ public class OnClickListenerButtonFinish implements View.OnClickListener {
         String cleanDate = cleanDate();
         request.setDate(cleanDate);
         request.setDescription(requestFragment.getEditTextWorkDescription().getText().toString());
-        system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+        system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
         system.replaceCurrentFragmentWith(new RequestsFragment(system), R.anim.slide_down);
     }
 

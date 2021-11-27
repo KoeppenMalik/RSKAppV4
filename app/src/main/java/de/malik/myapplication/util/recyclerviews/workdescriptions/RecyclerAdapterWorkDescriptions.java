@@ -14,9 +14,12 @@ import de.malik.myapplication.util.RSKSystem;
 
 public class RecyclerAdapterWorkDescriptions extends RecyclerView.Adapter<ViewHolderWorkDescriptions> {
 
+    private View v;
     private ArrayList<String> savedWorkDescriptions;
+    private RSKSystem system;
 
     public RecyclerAdapterWorkDescriptions(RSKSystem system) {
+        this.system = system;
         savedWorkDescriptions = system.getProjectManager().getSavedWorkDescriptions();
     }
 
@@ -24,7 +27,7 @@ public class RecyclerAdapterWorkDescriptions extends RecyclerView.Adapter<ViewHo
     @Override
     public ViewHolderWorkDescriptions onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.viewholder_saved_customer_data_recyclerview, parent, false);
+        v = inflater.inflate(R.layout.viewholder_saved_customer_data_recyclerview, parent, false);
         return new ViewHolderWorkDescriptions(v);
     }
 
@@ -32,6 +35,7 @@ public class RecyclerAdapterWorkDescriptions extends RecyclerView.Adapter<ViewHo
     public void onBindViewHolder(@NonNull ViewHolderWorkDescriptions holder, int position) {
         holder.setIsRecyclable(false);
         holder.getTextViewData().setText(savedWorkDescriptions.get(position));
+        v.setOnClickListener(new OnClickListenerEditSavedWorkDescription(system, position));
     }
 
     @Override

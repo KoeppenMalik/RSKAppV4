@@ -9,26 +9,22 @@ import android.widget.Filterable;
 import androidx.recyclerview.widget.RecyclerView;
 import de.malik.myapplication.R;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Time;
+import de.malik.myapplication.util.customermanagement.Pause;
 import de.malik.myapplication.util.customermanagement.Project;
-import de.malik.myapplication.util.recyclerviews.Filter;
-import de.malik.myapplication.util.recyclerviews.projects.ViewHolderProjects;
 import de.malik.myapplication.util.recyclerviews.projects.recyclerviewprojects.OnClickListenerViewHolderProjects;
+import de.malik.mylibrary.managers.TimeManager;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-import static de.malik.myapplication.util.RSKSystem.TimeManager.*;
+public class RecyclerAdapterProjects extends RecyclerView.Adapter<ViewHolderProjects> {
 
-public class RecyclerAdapterProjects extends RecyclerView.Adapter<ViewHolderProjects> implements Filterable {
-
-    private ArrayList<Project> allProjects;
-    private ArrayList<Project> filteredProjects;
+    private ArrayList<Project> projects;
     private RSKSystem system;
     private View v;
 
-    public RecyclerAdapterProjects(ArrayList<Project> allProjects, RSKSystem system) {
-        this.allProjects = allProjects;
-        filteredProjects = new ArrayList<>(allProjects);
+    public RecyclerAdapterProjects(ArrayList<Project> projects, RSKSystem system) {
+        this.projects = projects;
         this.system = system;
     }
 
@@ -42,30 +38,29 @@ public class RecyclerAdapterProjects extends RecyclerView.Adapter<ViewHolderProj
     @Override
     public void onBindViewHolder(ViewHolderProjects holder, int position) {
         holder.setIsRecyclable(false);
-        Project project = filteredProjects.get(position);
-        Time startTime = project.getStartTime();
-        Time stopTime = project.getStopTime();
-        Time diff = getDiffInMinutes(startTime, stopTime, project.getPauses());
+        Project project = projects.get(position);
+        Date startTime = project.getStartTime();
+        Date stopTime = project.getStopTime();
+        long diff = TimeManager.diff(stopTime, startTime);
+        for (Pause pause : project.getPauses()) {
+            diff -= pause.getTime().getTime();
+        }
+        Date timeDiff = new Date(diff);
 
         holder.getTextViewName().setText(project.getName());
         holder.getTextViewWorkDescription().setText(project.getWorkDescription());
-        holder.getTextViewTotalTime().setText(new Time(diff.getHours(), diff.getMinutes()).asDiffString());
+        holder.getTextViewTotalTime().setText(TimeManager.toTimeString(timeDiff, false));
         holder.getTextViewDate().setText(project.getDate());
-        holder.getTextViewTimes().setText(project.getStartTime().asString("") + " - " + project.getStopTime().asString(""));
+        holder.getTextViewTimes().setText(TimeManager.formatTimeString(TimeManager.toTimeString(startTime, false)) + " - " + TimeManager.formatTimeString(TimeManager.toTimeString(stopTime, false)));
         v.setOnClickListener(new OnClickListenerViewHolderProjects(system, project));
     }
 
     @Override
     public int getItemCount() {
-        return filteredProjects.size();
+        return projects.size();
     }
 
-    @Override
-    public Filter getFilter() {
-        return new Filter(filteredProjects, allProjects, this);
-    }
-
-    public void setFilteredProjects(ArrayList<Project> filteredProjects) {
-        this.filteredProjects = filteredProjects;
+    public void setProjects(ArrayList<Project> projects) {
+        this.projects = projects;
     }
 }

@@ -14,18 +14,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Date;
+
 import de.malik.myapplication.R;
 import de.malik.myapplication.listeners.onclick.projectfragment.OnClickListenerButtonAddPause;
 import de.malik.myapplication.listeners.onclick.projectfragment.OnClickListenerButtonSetStartTime;
 import de.malik.myapplication.listeners.onclick.projectfragment.OnClickListenerButtonSetStopTime;
 import de.malik.myapplication.listeners.onclick.projectfragment.OnClickListenerImageButtonEditCustomerData;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Time;
+import de.malik.myapplication.util.customermanagement.Pause;
 import de.malik.myapplication.util.customermanagement.Project;
 import de.malik.myapplication.util.recyclerviews.pauses.ItemTouchHelperRecyclerViewPauses;
 import de.malik.myapplication.util.recyclerviews.pauses.RecyclerAdapterPauses;
-
-import static de.malik.myapplication.util.RSKSystem.TimeManager.*;
+import de.malik.mylibrary.managers.TimeManager;
 
 public class ProjectFragment extends Fragment {
 
@@ -34,9 +36,9 @@ public class ProjectFragment extends Fragment {
     private Project project;
     private RecyclerAdapterPauses recyclerAdapterPauses;
     private TextView textViewCurrentName, textViewDate, textViewWorkDescription;
-    private ImageButton imageButtonEditData;
+    private ImageButton imageButtonEditData, imageButtonAddPause;
     private RecyclerView recyclerView;
-    private Button buttonSetStartTime, buttonSetStopTime, buttonAddPause;
+    private Button buttonSetStartTime, buttonSetStopTime;
     private EditText editTextStartTime, editTextStopTime, editTextTotalTime;
 
     public ProjectFragment(RSKSystem system, Project project) {
@@ -52,18 +54,22 @@ public class ProjectFragment extends Fragment {
     }
 
     private void handleGui() {
-        Time startTime = project.getStartTime();
-        Time stopTime = project.getStopTime();
-        Time diff = getDiffInMinutes(startTime, stopTime, project.getPauses());
+        Date startTime = project.getStartTime();
+        Date stopTime = project.getStopTime();
+        long diff = TimeManager.diff(stopTime, startTime);
+        for (Pause pause : project.getPauses()) {
+            diff -= pause.getTime().getTime();
+        }
+        Date timeDiff = new Date(diff);
 
         createComponents();
         textViewCurrentName.setText(project.getName());
         recyclerView.setAdapter(recyclerAdapterPauses);
         recyclerView.addItemDecoration(new DividerItemDecoration(system.getContext(), DividerItemDecoration.VERTICAL));
         textViewDate.setText(project.getDate());
-        editTextStartTime.setText(startTime.asString("Uhr"));
-        editTextStopTime.setText(stopTime.asString("Uhr"));
-        editTextTotalTime.setText(diff.asDiffString());
+        editTextStartTime.setText(TimeManager.formatTimeString(TimeManager.toTimeString(startTime, false)));
+        editTextStopTime.setText(TimeManager.formatTimeString(TimeManager.toTimeString(stopTime, false)));
+        editTextTotalTime.setText(TimeManager.toTimeString(timeDiff, false));
         textViewWorkDescription.setText(project.getWorkDescription());
         setListeners();
     }
@@ -73,10 +79,10 @@ public class ProjectFragment extends Fragment {
         textViewCurrentName = v.findViewById(R.id.textViewCurrentName);
         textViewDate = v.findViewById(R.id.textViewDate);
         imageButtonEditData = v.findViewById(R.id.imageButtonEditData);
+        imageButtonAddPause = v.findViewById(R.id.imageButtonAddPause);
         recyclerView = v.findViewById(R.id.recyclerView);
         buttonSetStartTime = v.findViewById(R.id.buttonSetStartTime);
         buttonSetStopTime = v.findViewById(R.id.buttonSetStopTime);
-        buttonAddPause = v.findViewById(R.id.buttonAddPause);
         editTextStartTime = v.findViewById(R.id.editTextStartTime);
         editTextStopTime = v.findViewById(R.id.editTextStopTime);
         editTextTotalTime = v.findViewById(R.id.editTextTotalTime);
@@ -88,13 +94,16 @@ public class ProjectFragment extends Fragment {
         itemTouchHelper.attachToRecyclerView(recyclerView);
         buttonSetStartTime.setOnClickListener(new OnClickListenerButtonSetStartTime(system, project, this));
         buttonSetStopTime.setOnClickListener(new OnClickListenerButtonSetStopTime(system, project, this));
-        buttonAddPause.setOnClickListener(new OnClickListenerButtonAddPause(system, project));
+        imageButtonAddPause.setOnClickListener(new OnClickListenerButtonAddPause(system, project));
         imageButtonEditData.setOnClickListener(new OnClickListenerImageButtonEditCustomerData(system, project));
     }
 
     public void notifyCustomerTimeChange() {
-        Time diff = getDiffInMinutes(project.getStartTime(), project.getStopTime(), project.getPauses());
-        editTextTotalTime.setText(diff.asDiffString());
+        long diff = TimeManager.diff(project.getStopTime(), project.getStartTime());
+        for (Pause pause : project.getPauses()) {
+            diff -= pause.getTime().getTime();
+        }
+        editTextTotalTime.setText(TimeManager.toTimeString(new Date(diff), false));
     }
 
     public RecyclerAdapterPauses getRecyclerAdapterPauses() {

@@ -3,13 +3,16 @@
 package de.malik.myapplication.listeners.onclick.addpausefragment;
 
 import android.view.View;
+
+import java.util.Date;
+
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.AddPauseFragment;
 import de.malik.myapplication.gui.fragments.ProjectFragment;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Time;
 import de.malik.myapplication.util.customermanagement.Project;
 import de.malik.myapplication.util.customermanagement.Pause;
+import de.malik.mylibrary.managers.TimeManager;
 
 public class OnClickListenerButtonFinish implements View.OnClickListener {
 
@@ -27,25 +30,25 @@ public class OnClickListenerButtonFinish implements View.OnClickListener {
     public void onClick(View v) {
         String hoursStr = addPauseFragment.getEditTextHours().getText().toString();
         String minutesStr = addPauseFragment.getEditTextMinutes().getText().toString();
-        int hours, minutes;
+        double hours, minutes;
 
-        if (hoursStr.isEmpty()) {
-            hoursStr = "0";
+        if (hoursStr.equals("") || hoursStr.isEmpty() || minutesStr.equals("") || minutesStr.isEmpty()) {
+            system.makeShortToast("Stunden und Minuten müssen eingetragen werden");
+            return;
         }
-        else if (minutesStr.isEmpty()) {
-            minutesStr = "0";
-        }
-        if (RSKSystem.TimeManager.isInteger(hoursStr) && RSKSystem.TimeManager.isInteger(minutesStr)) {
-            hours = Integer.parseInt(hoursStr);
-            minutes = Integer.parseInt(minutesStr);
-            if (!(hours < 0) && !(minutes < 0) && (hours < 24 && minutes < 60)) {
-                Pause newPause = new Pause(system.getProjectManager().getNextPauseId(), new Time(hours, minutes));
+        hours = Integer.parseInt(hoursStr);
+        minutes = Integer.parseInt(minutesStr);
+        if (hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60) {
+            if (hours == 0 && minutes == 0) {
+                system.makeShortToast("Stunden und Minuten sind null");
+            }
+            else {
+                Pause newPause = new Pause(system.getProjectManager().getNextPauseId(), new Date((long) TimeManager.hoursToMillis(hours + minutes / 60)));
                 project.getPauses().add(newPause);
-                system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+                system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
                 system.replaceCurrentFragmentWith(new ProjectFragment(system, project), R.anim.slide_down);
             }
-            else system.makeShortToast("Falsche Eingabe");
         }
-        else system.makeShortToast("Bitte verwende Zahlen");
+        else system.makeShortToast("Falsche Eingabe");
     }
 }

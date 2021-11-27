@@ -6,7 +6,10 @@
     <string name="archivedProjects">Archivierte Projekte</string>
     <string name="recentlyVisitedProject">Zuletzt angesehenes Projekt</string>
     <string name="requests">Planungen</string>
+
+    <!-- have a look at "unknown" -->
     <string name="unknown">Unbekannt</string>
+
     <string name="started">Gestartet</string>
     <string name="stopped">Gestoppt</string>
     <string name="save">Speichern</string>
@@ -31,16 +34,18 @@
     <string name="errorOccurred">Ein Fehler ist aufgetreten</string>
     <string name="info">Info</string>
     <string name="appInfo">Über die App</string>
-    <string name="newRequest">Neue Anfrage</string>
-    <string name="request">Anfrage</string>
+    <string name="newRequest">Neue Planung</string>
+    <string name="request">Planung</string>
     <string name="date">Datum</string>
     <string name="convertToProject">Zu Projekt konvertieren</string>
-    <string name="manageCustomerNames">Kunden Namen verwalten</string>
-    <string name="customerNames">Kunden Namen</string>
+    <string name="manageCustomerNames">Projekt Namen verwalten</string>
+    <string name="customerNames">Kundennamen</string>
     <string name="workDescriptions">Arbeitsbeschreibungen</string>
     <string name="newCustomerName">Neuer Kundenname</string>
     <string name="names">Namen</string>
-    <string name="convertToRequest">Zu Anfrage konvertieren</string>
+    <string name="convertToRequest">Zu Planung konvertieren</string>
     <string name="newWorkDescription">Neue Arbeitsbeschreibung</string>
     <string name="filter">Filter</string>
+    <string name="edit">Anpassen</string>
+    <string name="choose">Auswählen</string>
 </resources>

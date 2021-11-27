@@ -19,14 +19,20 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0" app:layout_constraintTop_toBottomOf="@+id/divider10" android:layout_marginTop="8dp"/>
+
     <TextView
-            android:text="Version: 3.2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" android:id="@+id/textViewVersion"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@android:color/white" app:layout_constraintStart_toStartOf="@+id/textViewLocation"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintTop_toBottomOf="@+id/divider11" android:layout_marginTop="8dp"/>
+        android:id="@+id/textViewVersion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Version:&#160;"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textViewLocation"
+        app:layout_constraintTop_toBottomOf="@+id/divider11" />
     <TextView
             android:text="Erstellt am: 23.01.2021 um 15:27 Uhr"
             android:layout_width="wrap_content"

@@ -17,6 +17,7 @@ import java.util.TimeZone;
 import de.malik.myapplication.util.DatePickerFragment;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.mylibrary.managers.TimeManager;
 
 public class OnClickListenerButtonSetDateEditProjectFragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
@@ -38,30 +39,12 @@ public class OnClickListenerButtonSetDateEditProjectFragment implements View.OnC
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        month++;
-        String dateString = createDateString(dayOfMonth, month, year);
-        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        Date date = null;
+        String dateString = TimeManager.formatDate(dayOfMonth, month +1, year);
         try {
-            date = df.parse(dayOfMonth + "." + month + "." + year);
-        } catch (ParseException ex) {
-            ex.printStackTrace();
+            editTextDate.setText(dateString + " (" + TimeManager.WEEK_DAYS[TimeManager.dayOfWeek(dateString) -1] + ")");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        Calendar c = Calendar.getInstance();
-        c.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
-        c.setTime(date);
-        editTextDate.setText(dateString + " (" + RSKSystem.TimeManager.WEEK_DAYS[c.get(Calendar.DAY_OF_WEEK)] + ")");
         project.setDate(dateString);
-    }
-
-    private String createDateString(int dayOfMonth, int month, int year) {
-        String dayString = dayOfMonth + "", monthString = month + "";
-        if (dayOfMonth < 10) {
-            dayString = "0" + dayOfMonth;
-        }
-        if (month < 10) {
-            monthString = "0" + month;
-        }
-        return dayString + "." + monthString + "." + year;
     }
 }

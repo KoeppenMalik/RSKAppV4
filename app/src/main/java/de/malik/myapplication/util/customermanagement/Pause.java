@@ -2,14 +2,17 @@
 
 package de.malik.myapplication.util.customermanagement;
 
-import de.malik.myapplication.util.filemanagement.FileManager;
+import java.util.Date;
+
+import de.malik.myapplication.util.filemanagement.RSKFileManager;
+import de.malik.mylibrary.managers.TimeManager;
 
 public class Pause {
 
     private long id;
-    private Time time;
+    private Date time;
 
-    public Pause(long id, Time time) {
+    public Pause(long id, Date time) {
         this.id = id;
         this.time = time;
     }
@@ -19,14 +22,14 @@ public class Pause {
      * @return a string which can be printed into a file
      */
     public String getRecord() {
-        return id + FileManager.SPLIT_REGEX + time.asString();
+        return id + RSKFileManager.SPLIT_REGEX + TimeManager.toTimeString(time, false);
     }
 
     public long getId() {
         return id;
     }
 
-    public Time getTime() {
+    public Date getTime() {
         return time;
     }
 }

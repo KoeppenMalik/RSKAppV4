@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import de.malik.myapplication.R;
-import de.malik.myapplication.gui.fragments.CustomerNamesFragment;
+import de.malik.myapplication.gui.fragments.ProjectNamesFragment;
 import de.malik.myapplication.util.RSKSystem;
 
 public class OnClickListenerButtonAddNewCustomerName implements View.OnClickListener {
@@ -41,9 +41,9 @@ public class OnClickListenerButtonAddNewCustomerName implements View.OnClickList
                 return;
             }
             system.getProjectManager().getSavedCustomerNames().add(customerName);
-            system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
             dialog.dismiss();
-            system.replaceCurrentFragmentWith(new CustomerNamesFragment(system), RSKSystem.NO_ANIM);
+            system.replaceCurrentFragmentWith(new ProjectNamesFragment(system), RSKSystem.NO_ANIM);
         });
         dialog.create();
         dialog.show();

@@ -1,9 +1,15 @@
 package de.malik.myapplication.util.filter;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Locale;
 
+import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.myapplication.util.customermanagement.ProjectManager;
+import de.malik.mylibrary.managers.TimeManager;
 
 public class Filter {
 
@@ -15,23 +21,40 @@ public class Filter {
         value = filterValue;
     }
 
-    public static ArrayList<Project> sort(FilterValue currentValue, FilterValue value, ArrayList<Project> projects) {
-        ArrayList<Project> sortedList = new ArrayList<>();
-        if (value == FilterValue.NEW_TO_OLD) {
-            if (!(currentValue == FilterValue.NEW_TO_OLD)) {
-                for (int i = projects.size() - 1; i >= 0; i--) {
-                    sortedList.add(projects.get(i));
-                }
-            } else return projects;
+    public static ArrayList<Project> sort(FilterValue newValue, ProjectManager projectManager) {
+        ArrayList<Project> projects = projectManager.getProjects();
+        if (RSKSystem.currentFilter.getValue() == newValue)
+            return projectManager.getProjects();
+        if (newValue == FilterValue.CREATED_ASC) {
+            ArrayList<Long> ids = new ProjectManager.FilterHelper().getAllIds(projects);
+            ids.sort((o1, o2) -> {
+                return o1.compareTo(o2);
+            });
+            return new ProjectManager.FilterHelper().assignProjectsToIds(ids, projects);
         }
-        else if (value == FilterValue.ID) {
-            if (!(currentValue == FilterValue.ID)) {
-                for (int i = projects.size() - 1; i >= 0; i--) {
-                    sortedList.add(projects.get(i));
+        else if (newValue == FilterValue.DATE_OLD_TO_NEW || newValue == FilterValue.DATE_NEW_TO_OLD) {
+            DateFormat df = new SimpleDateFormat(TimeManager.default_date_format, Locale.GERMANY);
+            ArrayList<String> dates = new ProjectManager.FilterHelper().getAllDates(projects);
+            dates.sort((o1, o2) -> {
+                try {
+                    if (newValue == FilterValue.DATE_OLD_TO_NEW)
+                        return df.parse(o1).compareTo(df.parse(o2));
+                    return df.parse(o2).compareTo(df.parse(o1));
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
                 }
-            } else return projects;
+                return 0;
+            });
+            return new ProjectManager.FilterHelper().assignProjectsToDates(dates, projects);
         }
-        return sortedList;
+        else if (newValue == FilterValue.NAME_A_TO_Z) {
+            ArrayList<String> names = new ProjectManager.FilterHelper().getAllNames(projects);
+            names.sort((o1, o2) -> {
+                return o1.compareTo(o2);
+            });
+            return new ProjectManager.FilterHelper().assignProjectsToNames(names, projects);
+        }
+        return projectManager.getProjects();
     }
 
     public String getText() {

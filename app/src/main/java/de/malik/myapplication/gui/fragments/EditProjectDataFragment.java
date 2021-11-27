@@ -28,8 +28,10 @@ import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListe
 import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerButtonFinish;
 import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerButtonSetDateEditProjectFragment;
 import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerImageButtonChooseName;
+import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerImageButtonChooseWorkDescription;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.mylibrary.managers.TimeManager;
 
 public class EditProjectDataFragment extends Fragment {
 
@@ -37,10 +39,9 @@ public class EditProjectDataFragment extends Fragment {
     private View v;
     private Project project;
     private TextView textViewCurrentName;
-    private EditText editTextName, editTextDate;
-    private AutoCompleteTextView editTextWorkDescription;
+    private EditText editTextName, editTextDate, editTextWorkDescription;
     private Button buttonFinish, buttonCancel, buttonConvertToRequest, buttonSetDate;
-    private ImageButton imageButtonChooseName;
+    private ImageButton imageButtonChooseName, imageButtonChooseWorkDescription;
 
     public EditProjectDataFragment(RSKSystem system, Project project) {
         this.system = system;
@@ -67,21 +68,11 @@ public class EditProjectDataFragment extends Fragment {
         textViewCurrentName.setText(name);
         editTextName.setText(name);
         editTextWorkDescription.setText(workDescription);
-        ArrayList<String> savedWorkDescriptions = system.getProjectManager().getSavedWorkDescriptions();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(system.getContext(), android.R.layout.select_dialog_item, savedWorkDescriptions);
-        editTextWorkDescription.setAdapter(adapter);
-        editTextWorkDescription.setThreshold(1);
-        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        Date date = null;
         try {
-            date = df.parse(project.getDate());
-        } catch (ParseException ex) {
-            ex.printStackTrace();
+            editTextDate.setText(project.getDate() + " (" + TimeManager.WEEK_DAYS[TimeManager.dayOfWeek(project.getDate()) -1] + ")");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        Calendar c = Calendar.getInstance();
-        c.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
-        c.setTime(date);
-        editTextDate.setText(project.getDate() + " (" + RSKSystem.TimeManager.WEEK_DAYS[c.get(Calendar.DAY_OF_WEEK)] + ")");
         setListeners();
     }
 
@@ -95,12 +86,14 @@ public class EditProjectDataFragment extends Fragment {
         buttonFinish = v.findViewById(R.id.buttonFinish);
         buttonCancel = v.findViewById(R.id.buttonCancel);
         buttonConvertToRequest = v.findViewById(R.id.buttonConvertToRequest);
+        imageButtonChooseWorkDescription = v.findViewById(R.id.imageButtonChooseWorkDescription);
     }
 
     private void setListeners() {
         buttonFinish.setOnClickListener(new OnClickListenerButtonFinish(system, project, this));
         buttonCancel.setOnClickListener(new OnClickListenerButtonCancel(system, project));
         imageButtonChooseName.setOnClickListener(new OnClickListenerImageButtonChooseName(system, editTextName));
+        imageButtonChooseWorkDescription.setOnClickListener(new OnClickListenerImageButtonChooseWorkDescription(system, editTextWorkDescription));
         buttonConvertToRequest.setOnClickListener(new OnClickListenerButtonConvertToRequest(system, project));
         buttonSetDate.setOnClickListener(new OnClickListenerButtonSetDateEditProjectFragment(system, editTextDate, project));
     }

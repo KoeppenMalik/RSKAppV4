@@ -37,6 +37,8 @@ public class AddPauseFragment extends Fragment {
 
     private void handleGui() {
         createComponents();
+        editTextHours.setText("0");
+        editTextMinutes.setText("0");
         setListeners();
     }
 

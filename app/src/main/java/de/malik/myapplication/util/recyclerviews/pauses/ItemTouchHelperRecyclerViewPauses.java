@@ -38,7 +38,7 @@ public class ItemTouchHelperRecyclerViewPauses extends ItemTouchHelper.SimpleCal
             project.getPauses().remove(INDEX);
             projectFragment.getRecyclerAdapterPauses().notifyDataSetChanged();
             projectFragment.notifyCustomerTimeChange();
-            system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
         }
     }
 

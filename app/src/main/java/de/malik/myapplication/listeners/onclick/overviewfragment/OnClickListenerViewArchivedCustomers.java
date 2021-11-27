@@ -20,6 +20,6 @@ public class OnClickListenerViewArchivedCustomers implements View.OnClickListene
         if (system.getProjectManager().getArchivedProjects().size() > 0) {
             system.replaceCurrentFragmentWith(new ArchivedProjectsFragment(system), R.anim.slide_up);
         }
-        else system.showErrorDialog("Derzeit gibt es keine archivierten Kunden.");
+        else system.showErrorDialog("Derzeit gibt es keine archivierten Projekte.");
     }
 }

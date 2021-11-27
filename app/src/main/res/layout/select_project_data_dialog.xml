@@ -13,14 +13,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/names"
+        android:text="@string/choose"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinnerCustomerNames"
+        android:id="@+id/spinnerData"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
@@ -52,5 +52,5 @@
         android:text="@string/finish"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerCustomerNames" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerData" />
 </androidx.constraintlayout.widget.ConstraintLayout>

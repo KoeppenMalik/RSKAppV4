@@ -36,7 +36,7 @@ public class OnClickListenerButtonFinish implements View.OnClickListener {
         editDataFragment.getTextViewCurrentName().setText(name);
         project.setName(name);
         project.setWorkDescription(workDescription);
-        system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+        system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
         system.replaceCurrentFragmentWith(new ProjectFragment(system, project), R.anim.slide_down);
     }
 }

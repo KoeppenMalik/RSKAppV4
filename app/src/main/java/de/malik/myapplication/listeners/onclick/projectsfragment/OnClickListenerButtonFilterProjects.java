@@ -1,40 +1,30 @@
 package de.malik.myapplication.listeners.onclick.projectsfragment;
 
 import android.app.Dialog;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.ProjectsFragment;
-import de.malik.myapplication.gui.fragments.WorkDescriptionsFragment;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Project;
 import de.malik.myapplication.util.filter.Filter;
-import de.malik.myapplication.util.filter.FilterValue;
 import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProjects;
 
 public class OnClickListenerButtonFilterProjects implements View.OnClickListener {
 
     private RSKSystem system;
     private RecyclerAdapterProjects recyclerAdapterProjects;
-    private Filter[] filters;
-    private String[] filterNames;
 
     public OnClickListenerButtonFilterProjects(RSKSystem system, RecyclerAdapterProjects recyclerAdapterProjects) {
         this.system = system;
         this.recyclerAdapterProjects = recyclerAdapterProjects;
-        filters = system.getFilters();
-        filterNames = new String[filters.length];
-        for (int i = 0; i < filters.length; i++) {
-            filterNames[i] = filters[i].getText();
-        }
     }
 
     @Override
@@ -49,23 +39,22 @@ public class OnClickListenerButtonFilterProjects implements View.OnClickListener
         dialog.getWindow().setAttributes(lp);
 
         Spinner spinner = dialog.findViewById(R.id.spinnerFilters);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(system.getContext(), R.layout.spinner_item, filterNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(system.getContext(), R.layout.spinner_item, system.getFilterLabels());
         spinner.setAdapter(adapter);
         Button buttonFinish = dialog.findViewById(R.id.buttonFinish),
                 buttonCancel = dialog.findViewById(R.id.buttonCancel);
 
         buttonCancel.setOnClickListener((view) -> dialog.dismiss());
         buttonFinish.setOnClickListener((view) -> {
-            Filter newFilter = filters[spinner.getSelectedItemPosition()];
-            ArrayList<Project> filteredProjects = Filter.sort(system.getCurrentFilter().getValue(), newFilter.getValue(), system.getProjectManager().getProjects());
-            system.setCurrentFilter(newFilter);
+            Filter newFilter = system.getFilters()[spinner.getSelectedItemPosition()];
+            ArrayList<Project> filteredProjects = Filter.sort(newFilter.getValue(), system.getProjectManager());
+            RSKSystem.currentFilter = newFilter;
             system.getProjectManager().setProjects(filteredProjects);
             recyclerAdapterProjects.notifyDataSetChanged();
-            system.getFileManager().getPrinter().reprintFiles(system.getFileManager(), system.getProjectManager());
+            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
             dialog.dismiss();
             system.replaceCurrentFragmentWith(new ProjectsFragment(system), RSKSystem.NO_ANIM);
         });
-        Log.i("TAG", system.getCurrentFilter() + "");
         dialog.create();
         dialog.show();
     }

@@ -3,15 +3,12 @@ package de.malik.myapplication.listeners.onclick.editprojectfragment;
 import android.app.Dialog;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import de.malik.myapplication.R;
-import de.malik.myapplication.gui.fragments.CustomerNamesFragment;
 import de.malik.myapplication.util.RSKSystem;
 
 public class OnClickListenerImageButtonChooseName implements View.OnClickListener {
@@ -28,8 +25,12 @@ public class OnClickListenerImageButtonChooseName implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        if (system.getProjectManager().getSavedCustomerNames().size() == 0) {
+            system.makeShortToast("Noch keine gespeicherten Daten");
+            return;
+        }
         Dialog dialog = new Dialog(system.getMain().getDialogContext());
-        dialog.setContentView(R.layout.choose_customer_name_dialog);
+        dialog.setContentView(R.layout.select_project_data_dialog);
         dialog.setTitle("Erstellen");
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
@@ -37,7 +38,7 @@ public class OnClickListenerImageButtonChooseName implements View.OnClickListene
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes(lp);
 
-        spinner = dialog.findViewById(R.id.spinnerCustomerNames);
+        spinner = dialog.findViewById(R.id.spinnerData);
         buttonCancel = dialog.findViewById(R.id.buttonCancel);
         buttonFinish = dialog.findViewById(R.id.buttonFinish);
 

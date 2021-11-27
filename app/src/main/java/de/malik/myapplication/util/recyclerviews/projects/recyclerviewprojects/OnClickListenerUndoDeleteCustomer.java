@@ -3,19 +3,20 @@
 package de.malik.myapplication.util.recyclerviews.projects.recyclerviewprojects;
 
 import android.view.View;
+
+import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Project;
-import de.malik.myapplication.util.customermanagement.ProjectManager;
 import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProjects;
 
 public class OnClickListenerUndoDeleteCustomer implements View.OnClickListener {
 
-    private ProjectManager projectManager;
+    private RSKSystem system;
     private RecyclerAdapterProjects recyclerAdapterProjects;
     private int index;
     private Project deletedProject;
 
-    public OnClickListenerUndoDeleteCustomer(ProjectManager projectManager, RecyclerAdapterProjects recyclerAdapterProjects, int index, Project deletedProject) {
-        this.projectManager = projectManager;
+    public OnClickListenerUndoDeleteCustomer(RSKSystem system, RecyclerAdapterProjects recyclerAdapterProjects, int index, Project deletedProject) {
+        this.system = system;
         this.recyclerAdapterProjects = recyclerAdapterProjects;
         this.index = index;
         this.deletedProject = deletedProject;
@@ -23,7 +24,7 @@ public class OnClickListenerUndoDeleteCustomer implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        projectManager.getProjects().add(index, deletedProject);
+        system.getProjectManager().getProjects().add(index, deletedProject);
         recyclerAdapterProjects.notifyDataSetChanged();
     }
 }

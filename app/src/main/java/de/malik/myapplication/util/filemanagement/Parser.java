@@ -2,20 +2,14 @@
 
 package de.malik.myapplication.util.filemanagement;
 
-import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.customermanagement.Request;
-import de.malik.myapplication.util.customermanagement.Time;
 import de.malik.myapplication.util.customermanagement.Project;
 import de.malik.myapplication.util.customermanagement.Pause;
+import de.malik.mylibrary.managers.TimeManager;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 
 public class Parser {
 
@@ -30,12 +24,12 @@ public class Parser {
         Project project;
 
         for (String line : lines) {
-            if (!line.contains(FileManager.COMMENT_PREFIX)) {
-                String[] rows = line.split(FileManager.SPLIT_REGEX);
-                Time startTime = RSKSystem.TimeManager.parseTime(rows[2]);
-                Time stopTime = RSKSystem.TimeManager.parseTime(rows[3]);
+            if (!line.contains(RSKFileManager.COMMENT_PREFIX)) {
+                String[] rows = line.split(RSKFileManager.SPLIT_REGEX);
+                Date startTime = new Date(TimeManager.toMillis(rows[2]));
+                Date stopTime = new Date(TimeManager.toMillis(rows[3]));
                 project = new Project(Integer.parseInt(rows[0]), rows[1], startTime, stopTime, rows[4], rows[5]);
-                if (rows.length > 7) {
+                if (rows.length > 6) {
                     ArrayList<Pause> pauses = new ArrayList<>();
                     for (int i = 6; i < rows.length; i++) {
                         for (int j = 0; j < allPauses.size(); j++) {
@@ -62,9 +56,9 @@ public class Parser {
         ArrayList<Pause> pauses = new ArrayList<>();
 
         for (String line : lines) {
-            if (!line.contains(FileManager.COMMENT_PREFIX)) {
-                String[] rows = line.split(FileManager.SPLIT_REGEX);
-                Time time = RSKSystem.TimeManager.parseTime(rows[1]);
+            if (!line.contains(RSKFileManager.COMMENT_PREFIX)) {
+                String[] rows = line.split(RSKFileManager.SPLIT_REGEX);
+                Date time = new Date(TimeManager.toMillis(rows[1]));
                 pauses.add(new Pause(Long.parseLong(rows[0]), time));
             }
         }
@@ -80,24 +74,11 @@ public class Parser {
         ArrayList<Request> requests = new ArrayList<>();
 
         for (String line : lines) {
-            if (!line.contains(FileManager.COMMENT_PREFIX)) {
-                String[] rows = line.split(FileManager.SPLIT_REGEX);
+            if (!line.contains(RSKFileManager.COMMENT_PREFIX)) {
+                String[] rows = line.split(RSKFileManager.SPLIT_REGEX);
                 requests.add(new Request(Long.parseLong(rows[0]), rows[1], rows[2], rows[3]));
             }
         }
         return requests;
-    }
-
-    public static ArrayList<String> parseStrings(ArrayList<String> lines) {
-        ArrayList<String> strings = new ArrayList<>();
-        if (lines.size() == 0) {
-            return strings;
-        }
-        String[] splitStrings = null;
-        for (String line : lines) {
-            splitStrings = line.split(FileManager.SPLIT_REGEX);
-        }
-        strings.addAll(Arrays.asList(splitStrings));
-        return strings;
     }
 }

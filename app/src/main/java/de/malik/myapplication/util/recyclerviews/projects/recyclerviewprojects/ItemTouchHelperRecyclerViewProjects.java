@@ -44,7 +44,7 @@ public class ItemTouchHelperRecyclerViewProjects extends ItemTouchHelper.SimpleC
             projectManager.getProjects().remove(INDEX);
             recyclerAdapterProjects.notifyDataSetChanged();
             Snackbar.make(projectsFragment.getRecyclerView(), "Kunde \"" + deletedProject.getName() + "\" gelöscht", Snackbar.LENGTH_LONG)
-                    .setAction("Rückgängig machen", new OnClickListenerUndoDeleteCustomer(projectManager, recyclerAdapterProjects, INDEX, deletedProject))
+                    .setAction("Rückgängig machen", new OnClickListenerUndoDeleteCustomer(system, recyclerAdapterProjects, INDEX, deletedProject))
                     .show();
         }
         else if (direction == ItemTouchHelper.RIGHT) {
@@ -56,10 +56,11 @@ public class ItemTouchHelperRecyclerViewProjects extends ItemTouchHelper.SimpleC
             projectManager.getArchivedProjects().add(archivedProject);
             recyclerAdapterProjects.notifyDataSetChanged();
             Snackbar.make(projectsFragment.getRecyclerView(), "Kunde \"" + archivedProject.getName() + "\" archiviert", Snackbar.LENGTH_LONG)
-                    .setAction("Rückgängig machen", new OnClickListenerUndoArchiveCustomer(INDEX, recyclerAdapterProjects, archivedProject, projectManager))
+                    .setAction("Rückgängig machen", new OnClickListenerUndoArchiveCustomer(INDEX, recyclerAdapterProjects, archivedProject, system))
                     .show();
         }
-        recyclerAdapterProjects.setFilteredProjects(projectManager.getProjects());
+        recyclerAdapterProjects.setProjects(projectManager.getProjects());
+        system.getFileManager().getPrinter().reprintFiles(projectManager);
     }
 
     @Override
