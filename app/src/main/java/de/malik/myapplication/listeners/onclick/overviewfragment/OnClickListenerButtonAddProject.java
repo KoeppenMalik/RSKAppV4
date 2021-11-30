@@ -9,24 +9,26 @@ import java.util.Date;
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.ProjectFragment;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.myapplication.util.projectmanagement.Project;
+import de.malik.myapplication.util.projectmanagement.ProjectManager;
 import de.malik.mylibrary.managers.TimeManager;
 
-public class OnClickListenerButtonAddCustomer implements View.OnClickListener {
+public class OnClickListenerButtonAddProject implements View.OnClickListener {
 
     private RSKSystem system;
 
-    public OnClickListenerButtonAddCustomer(RSKSystem system) {
+    public OnClickListenerButtonAddProject(RSKSystem system) {
         this.system = system;
     }
 
     @Override
     public void onClick(View v) {
-        long id = system.getProjectManager().getNextCustomerId();
+        ProjectManager projectManager = system.getProjectManager();
+        long id = projectManager.getNextId(ProjectManager.projects);
         String currentDate = TimeManager.currentDate();
         Project project = new Project(id, "Unbekannt " + id, new Date(0), new Date(0), currentDate, "-");
-        system.getProjectManager().getProjects().add(project);
-        system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+        ProjectManager.projects.add(project);
+        system.saveData();
         system.setRecentlyVisitedProject(project);
         system.replaceCurrentFragmentWith(new ProjectFragment(system, project), R.anim.slide_left);
     }

@@ -10,8 +10,8 @@ import com.google.android.material.snackbar.Snackbar;
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.RequestsFragment;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.ProjectManager;
-import de.malik.myapplication.util.customermanagement.Request;
+import de.malik.myapplication.util.projectmanagement.ProjectManager;
+import de.malik.myapplication.util.projectmanagement.Request;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ItemTouchHelperRecyclerViewRequests extends ItemTouchHelper.SimpleCallback {
@@ -45,7 +45,7 @@ public class ItemTouchHelperRecyclerViewRequests extends ItemTouchHelper.SimpleC
                     .setAction("Rückgängig machen", new OnClickListenerUndoDeleteRequest(INDEX, deletedRequest, system, requestsFragment)).show();
         }
         requestsFragment.getRecyclerAdapterRequests().setRequests(projectManager.getRequests());
-        system.getFileManager().getPrinter().reprintFiles(projectManager);
+        system.saveData();
     }
 
     @Override

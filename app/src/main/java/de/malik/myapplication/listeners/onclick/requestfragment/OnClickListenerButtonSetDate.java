@@ -12,7 +12,7 @@ import java.text.ParseException;
 
 import de.malik.myapplication.util.DatePickerFragment;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Request;
+import de.malik.myapplication.util.projectmanagement.Request;
 import de.malik.mylibrary.managers.TimeManager;
 
 public class OnClickListenerButtonSetDate implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
@@ -41,6 +41,6 @@ public class OnClickListenerButtonSetDate implements View.OnClickListener, DateP
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
-        system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+        system.saveData();
     }
 }

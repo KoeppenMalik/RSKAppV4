@@ -37,9 +37,9 @@ public class ItemTouchHelperRecyclerViewCustomerNames extends ItemTouchHelper.Si
             removedCustomerName = system.getProjectManager().getSavedCustomerNames().get(INDEX);
             system.getProjectManager().getSavedCustomerNames().remove(INDEX);
             fragment.getRecyclerAdapter().notifyDataSetChanged();
-            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+            system.saveData();
         }
-        system.makeShortToast("Name '" + removedCustomerName + "' entfernt");
+        system.makeToast("Name '" + removedCustomerName + "' entfernt");
         fragment.getRecyclerAdapter().setCustomerNames(system.getProjectManager().getSavedCustomerNames());
     }
 

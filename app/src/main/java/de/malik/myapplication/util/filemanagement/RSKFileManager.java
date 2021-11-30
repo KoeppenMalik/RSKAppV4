@@ -9,7 +9,7 @@ import de.malik.mylibrary.managers.FileManager;
 public class RSKFileManager {
 
     public static final String COMMENT_PREFIX = "##";
-    public static final String SPLIT_REGEX = ",";
+    public static final String SPLIT_REGEX = "  ";
     public static final String FOLDER_NAME = "rsk_data";
 
     public static final String[] FILE_NAMES = {

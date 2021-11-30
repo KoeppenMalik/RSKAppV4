@@ -33,7 +33,7 @@ import de.malik.myapplication.gui.fragments.InfoFragment;
 import de.malik.myapplication.gui.fragments.OverviewFragment;
 import de.malik.myapplication.listeners.onnavigationitemselected.OnNavigationItemSelectedListenerBottomNav;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.ProjectManager;
+import de.malik.myapplication.util.projectmanagement.ProjectManager;
 import de.malik.myapplication.util.filemanagement.RSKFileManager;
 import de.malik.myapplication.util.filemanagement.Printer;
 

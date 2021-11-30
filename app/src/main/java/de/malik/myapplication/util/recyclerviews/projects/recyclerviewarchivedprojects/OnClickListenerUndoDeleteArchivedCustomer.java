@@ -5,7 +5,7 @@ package de.malik.myapplication.util.recyclerviews.projects.recyclerviewarchivedp
 import android.view.View;
 
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.myapplication.util.projectmanagement.Project;
 import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProjects;
 
 public class OnClickListenerUndoDeleteArchivedCustomer implements View.OnClickListener {

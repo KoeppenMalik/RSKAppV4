@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import de.malik.myapplication.R;
-import de.malik.myapplication.listeners.onclick.ListenerSwitchFragment;
+import de.malik.myapplication.listeners.onclick.OnClickListenerSwitchFragment;
 import de.malik.myapplication.util.RSKSystem;
 
 public class ErrorFragment extends Fragment {
@@ -45,6 +45,6 @@ public class ErrorFragment extends Fragment {
     }
 
     private void setListeners() {
-        buttonBack.setOnClickListener(new ListenerSwitchFragment(new OverviewFragment(system), system, android.R.anim.fade_in));
+        buttonBack.setOnClickListener(new OnClickListenerSwitchFragment(new OverviewFragment(system), system, android.R.anim.fade_in));
     }
 }

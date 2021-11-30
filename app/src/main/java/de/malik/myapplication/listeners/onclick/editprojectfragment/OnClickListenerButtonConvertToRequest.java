@@ -8,9 +8,9 @@ import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.ProjectsFragment;
 import de.malik.myapplication.gui.fragments.RequestFragment;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Project;
-import de.malik.myapplication.util.customermanagement.ProjectManager;
-import de.malik.myapplication.util.customermanagement.Request;
+import de.malik.myapplication.util.projectmanagement.Project;
+import de.malik.myapplication.util.projectmanagement.ProjectManager;
+import de.malik.myapplication.util.projectmanagement.Request;
 
 public class OnClickListenerButtonConvertToRequest implements View.OnClickListener {
 
@@ -25,15 +25,15 @@ public class OnClickListenerButtonConvertToRequest implements View.OnClickListen
     @Override
     public void onClick(View viewParam) {
         ProjectManager projectManager = system.getProjectManager();
-        Request request = new Request(projectManager.getNextRequestId(), project.getName(), project.getDate(), project.getWorkDescription());
+        Request request = new Request(projectManager.getNextId(projectManager.getRequests()), project.getName(), project.getDate(), project.getWorkDescription());
         projectManager.getRequests().add(request);
-        system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+        system.saveData();
         system.replaceCurrentFragmentWith(new RequestFragment(system, request), R.anim.slide_left);
-        Snackbar.make(system.getMain().getBottomNav(), project.getName() + " wurde zu Anfrage konvertiert", Snackbar.LENGTH_LONG)
+        Snackbar.make(system.getMainActivity().getBottomNav(), project.getName() + " wurde zu Anfrage konvertiert", Snackbar.LENGTH_LONG)
         .setAction("Rückgängig machen", (View v) -> {
             projectManager.getRequests().remove(request);
-            projectManager.getProjects().add(project);
-            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+            ProjectManager.projects.add(project);
+            system.saveData();
             system.replaceCurrentFragmentWith(new ProjectsFragment(system), R.anim.slide_down);
         }).show();
     }

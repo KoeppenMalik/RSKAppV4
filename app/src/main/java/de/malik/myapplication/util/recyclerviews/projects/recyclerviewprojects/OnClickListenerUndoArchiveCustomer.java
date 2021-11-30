@@ -5,7 +5,8 @@ package de.malik.myapplication.util.recyclerviews.projects.recyclerviewprojects;
 import android.view.View;
 
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.myapplication.util.projectmanagement.Project;
+import de.malik.myapplication.util.projectmanagement.ProjectManager;
 import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProjects;
 
 public class OnClickListenerUndoArchiveCustomer implements View.OnClickListener {
@@ -25,7 +26,7 @@ public class OnClickListenerUndoArchiveCustomer implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         system.getProjectManager().getArchivedProjects().remove(system.getProjectManager().getArchivedProjects().lastIndexOf(archivedProject));
-        system.getProjectManager().getProjects().add(index, archivedProject);
+        ProjectManager.projects.add(index, archivedProject);
         recyclerAdapterProjects.notifyDataSetChanged();
     }
 }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import de.malik.myapplication.R;
 import de.malik.myapplication.util.RSKSystem;
+import de.malik.myapplication.util.projectmanagement.ProjectManager;
 import de.malik.myapplication.util.recyclerviews.projects.recyclerviewprojects.ItemTouchHelperRecyclerViewProjects;
 import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProjects;
 
@@ -32,7 +33,7 @@ public class ProjectsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (system.getProjectManager().getProjects().size() > 0) {
+        if (ProjectManager.projects.size() > 0) {
             v = inflater.inflate(R.layout.projects_fragment, container, false);
             handleGui();
         }
@@ -42,7 +43,7 @@ public class ProjectsFragment extends Fragment {
 
     private void handleGui() {
         createComponents();
-        recyclerAdapterProjects = new RecyclerAdapterProjects(system.getProjectManager().getProjects(), system);
+        recyclerAdapterProjects = new RecyclerAdapterProjects(ProjectManager.projects, system);
         recyclerView.setAdapter(recyclerAdapterProjects);
         recyclerView.addItemDecoration(new DividerItemDecoration(system.getContext(), DividerItemDecoration.VERTICAL));
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperRecyclerViewProjects(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this, system));

@@ -6,34 +6,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
 
 import de.malik.myapplication.R;
-import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerButtonCancel;
+import de.malik.myapplication.listeners.onclick.OnClickListenerButtonSave;
+import de.malik.myapplication.listeners.onclick.OnClickListenerSwitchFragment;
 import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerButtonConvertToRequest;
-import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerButtonFinish;
 import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerButtonSetDateEditProjectFragment;
-import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerImageButtonChooseName;
-import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerImageButtonChooseWorkDescription;
+import de.malik.myapplication.listeners.onclick.OnClickListenerImageButtonChooseSavedCustomerData;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.myapplication.util.Savable;
+import de.malik.myapplication.util.projectmanagement.CustomerData;
+import de.malik.myapplication.util.projectmanagement.Project;
 import de.malik.mylibrary.managers.TimeManager;
 
-public class EditProjectDataFragment extends Fragment {
+public class EditProjectDataFragment extends Fragment implements Savable {
 
     private RSKSystem system;
     private View v;
@@ -53,6 +46,24 @@ public class EditProjectDataFragment extends Fragment {
         v = inflater.inflate(R.layout.edit_project_data_fragment, container, false);
         handleGui();
         return v;
+    }
+
+    @Override
+    public void performSave() {
+        String name, workDescription;
+
+        if (!editTextName.getText().toString().equals("")) {
+            name = editTextName.getText().toString();
+        }
+        else name = "-";
+        if (!editTextWorkDescription.getText().toString().equals("")) {
+            workDescription = editTextWorkDescription.getText().toString();
+        }
+        else workDescription = "-";
+        textViewCurrentName.setText(name);
+        project.setName(name);
+        project.setWorkDescription(workDescription);
+        system.replaceCurrentFragmentWith(new ProjectFragment(system, project), R.anim.slide_down);
     }
 
     private void handleGui() {
@@ -90,20 +101,12 @@ public class EditProjectDataFragment extends Fragment {
     }
 
     private void setListeners() {
-        buttonFinish.setOnClickListener(new OnClickListenerButtonFinish(system, project, this));
-        buttonCancel.setOnClickListener(new OnClickListenerButtonCancel(system, project));
-        imageButtonChooseName.setOnClickListener(new OnClickListenerImageButtonChooseName(system, editTextName));
-        imageButtonChooseWorkDescription.setOnClickListener(new OnClickListenerImageButtonChooseWorkDescription(system, editTextWorkDescription));
+        buttonFinish.setOnClickListener(new OnClickListenerButtonSave(this, system));
+        buttonCancel.setOnClickListener(new OnClickListenerSwitchFragment(new ProjectFragment(system, project), system, R.anim.slide_down));
+        imageButtonChooseName.setOnClickListener(new OnClickListenerImageButtonChooseSavedCustomerData(system, editTextName, CustomerData.CHOOSE_SAVED_NAMES));
+        imageButtonChooseWorkDescription.setOnClickListener(new OnClickListenerImageButtonChooseSavedCustomerData(system, editTextWorkDescription, CustomerData.CHOOSE_SAVED_WORK_DESCRIPTIONS));
         buttonConvertToRequest.setOnClickListener(new OnClickListenerButtonConvertToRequest(system, project));
         buttonSetDate.setOnClickListener(new OnClickListenerButtonSetDateEditProjectFragment(system, editTextDate, project));
-    }
-
-    public TextView getTextViewCurrentName() {
-        return textViewCurrentName;
-    }
-
-    public EditText getEditTextName() {
-        return editTextName;
     }
 
     public EditText getEditTextWorkDescription() {

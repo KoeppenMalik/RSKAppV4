@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment;
 
 import de.malik.myapplication.util.RSKSystem;
 
-public class ListenerSwitchFragment implements View.OnClickListener {
+public class OnClickListenerSwitchFragment implements View.OnClickListener {
 
     private Fragment newFragment;
     private RSKSystem system;
     private int anim;
 
-    public ListenerSwitchFragment(Fragment newFragment, RSKSystem system, @AnimRes @AnimatorRes int anim) {
+    public OnClickListenerSwitchFragment(Fragment newFragment, RSKSystem system, @AnimRes @AnimatorRes int anim) {
         this.newFragment = newFragment;
         this.system = system;
         this.anim = anim;

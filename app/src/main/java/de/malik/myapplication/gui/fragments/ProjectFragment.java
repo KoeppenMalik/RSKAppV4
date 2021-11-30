@@ -23,8 +23,8 @@ import de.malik.myapplication.listeners.onclick.projectfragment.OnClickListenerB
 import de.malik.myapplication.listeners.onclick.projectfragment.OnClickListenerButtonSetStopTime;
 import de.malik.myapplication.listeners.onclick.projectfragment.OnClickListenerImageButtonEditCustomerData;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Pause;
-import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.myapplication.util.projectmanagement.Pause;
+import de.malik.myapplication.util.projectmanagement.Project;
 import de.malik.myapplication.util.recyclerviews.pauses.ItemTouchHelperRecyclerViewPauses;
 import de.malik.myapplication.util.recyclerviews.pauses.RecyclerAdapterPauses;
 import de.malik.mylibrary.managers.TimeManager;

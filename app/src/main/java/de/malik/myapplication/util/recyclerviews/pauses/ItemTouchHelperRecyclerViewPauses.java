@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.ProjectFragment;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.myapplication.util.projectmanagement.Project;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ItemTouchHelperRecyclerViewPauses extends ItemTouchHelper.SimpleCallback {
@@ -38,7 +38,7 @@ public class ItemTouchHelperRecyclerViewPauses extends ItemTouchHelper.SimpleCal
             project.getPauses().remove(INDEX);
             projectFragment.getRecyclerAdapterPauses().notifyDataSetChanged();
             projectFragment.notifyCustomerTimeChange();
-            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+            system.saveData();
         }
     }
 

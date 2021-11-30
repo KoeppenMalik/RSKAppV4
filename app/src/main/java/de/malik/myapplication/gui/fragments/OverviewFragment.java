@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import de.malik.myapplication.R;
+import de.malik.myapplication.listeners.onclick.overviewfragment.OnClickListenerButtonAddProject;
 import de.malik.myapplication.listeners.onclick.overviewfragment.OnClickListenerViewArchivedCustomers;
 import de.malik.myapplication.listeners.onclick.overviewfragment.OnClickListenerViewRecentlyVisitedCustomer;
 import de.malik.myapplication.listeners.onclick.overviewfragment.OnClickListenerViewRequests;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.listeners.onclick.overviewfragment.OnClickListenerButtonAddCustomer;
 
 public class OverviewFragment extends Fragment {
 
@@ -54,7 +54,7 @@ public class OverviewFragment extends Fragment {
     }
 
     private void setListeners() {
-        buttonAddCustomer.setOnClickListener(new OnClickListenerButtonAddCustomer(system));
+        buttonAddCustomer.setOnClickListener(new OnClickListenerButtonAddProject(system));
         viewRecentlyVisitedCustomer.setOnClickListener(new OnClickListenerViewRecentlyVisitedCustomer(system));
         viewArchivedCustomers.setOnClickListener(new OnClickListenerViewArchivedCustomers(system));
         viewRequests.setOnClickListener(new OnClickListenerViewRequests(system));

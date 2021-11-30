@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import de.malik.myapplication.R;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.ProjectManager;
+import de.malik.myapplication.util.projectmanagement.ProjectManager;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ItemTouchHelperRecyclerViewWorkDescriptions extends ItemTouchHelper.SimpleCallback {
@@ -38,9 +38,9 @@ public class ItemTouchHelperRecyclerViewWorkDescriptions extends ItemTouchHelper
             removedWorkDescription = projectManager.getSavedWorkDescriptions().get(INDEX);
             projectManager.getSavedWorkDescriptions().remove(INDEX);
             recyclerAdapterWorkDescriptions.notifyDataSetChanged();
-            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+            system.saveData();
         }
-        system.makeShortToast("Arbeitsbeschreibung '" + removedWorkDescription + "' entfernt");
+        system.makeToast("Arbeitsbeschreibung '" + removedWorkDescription + "' entfernt");
         recyclerAdapterWorkDescriptions.setSavedWorkDescriptions(system.getProjectManager().getSavedWorkDescriptions());
     }
 

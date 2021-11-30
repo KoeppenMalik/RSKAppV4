@@ -20,7 +20,7 @@ public class OnClickListenerButtonAddNewWorkDescription implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        Dialog dialog = new Dialog(system.getMain().getDialogContext());
+        Dialog dialog = new Dialog(system.getMainActivity().getDialogContext());
         dialog.setContentView(R.layout.add_work_description_dialog);
         dialog.setTitle("Erstellen");
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -37,11 +37,11 @@ public class OnClickListenerButtonAddNewWorkDescription implements View.OnClickL
         buttonFinish.setOnClickListener((view) -> {
             String workDescription = editTextWorkDescription.getText().toString();
             if (workDescription.isEmpty()) {
-                system.makeShortToast("Arbeitsbeschreibung darf nicht leer sein");
+                system.makeToast("Arbeitsbeschreibung darf nicht leer sein");
                 return;
             }
             system.getProjectManager().getSavedWorkDescriptions().add(workDescription);
-            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+            system.saveData();
             dialog.dismiss();
             system.replaceCurrentFragmentWith(new WorkDescriptionsFragment(system), RSKSystem.NO_ANIM);
         });

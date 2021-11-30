@@ -6,7 +6,8 @@ import android.view.View;
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.RequestFragment;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Request;
+import de.malik.myapplication.util.projectmanagement.ProjectManager;
+import de.malik.myapplication.util.projectmanagement.Request;
 import de.malik.mylibrary.managers.TimeManager;
 
 public class OnClickListenerButtonAddRequest implements View.OnClickListener {
@@ -19,10 +20,11 @@ public class OnClickListenerButtonAddRequest implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        long id = system.getProjectManager().getNextRequestId();
+        ProjectManager projectManager = system.getProjectManager();
+        long id = projectManager.getNextId(projectManager.getRequests());
         Request request = new Request(id, "Unbekannt " + id, TimeManager.currentDate(), "-");
         system.getProjectManager().getRequests().add(request);
-        system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+        system.saveData();
         system.replaceCurrentFragmentWith(new RequestFragment(system, request), R.anim.slide_up);
     }
 }

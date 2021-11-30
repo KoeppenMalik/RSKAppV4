@@ -6,9 +6,9 @@ import android.view.View;
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.ProjectFragment;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Project;
-import de.malik.myapplication.util.customermanagement.ProjectManager;
-import de.malik.myapplication.util.customermanagement.Request;
+import de.malik.myapplication.util.projectmanagement.Project;
+import de.malik.myapplication.util.projectmanagement.ProjectManager;
+import de.malik.myapplication.util.projectmanagement.Request;
 
 public class OnClickListenerButtonConvertToCustomers implements View.OnClickListener {
 
@@ -22,10 +22,9 @@ public class OnClickListenerButtonConvertToCustomers implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        ProjectManager projectManager = system.getProjectManager();
-        Project project = request.toCustomer(system);
-        projectManager.getProjects().add(project);
-        system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+        Project project = request.toProject(system);
+        ProjectManager.projects.add(project);
+        system.saveData();
         system.replaceCurrentFragmentWith(new ProjectFragment(system, project), R.anim.slide_right);
     }
 }

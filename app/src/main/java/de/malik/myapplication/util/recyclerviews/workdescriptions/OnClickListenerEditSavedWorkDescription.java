@@ -22,7 +22,7 @@ public class OnClickListenerEditSavedWorkDescription implements View.OnClickList
 
     @Override
     public void onClick(View viewParam) {
-        Dialog dialog = new Dialog(system.getMain().getDialogContext());
+        Dialog dialog = new Dialog(system.getMainActivity().getDialogContext());
         dialog.setContentView(R.layout.edit_saved_project_data);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
@@ -39,11 +39,11 @@ public class OnClickListenerEditSavedWorkDescription implements View.OnClickList
         buttonFinish.setOnClickListener((view) -> {
             String workDescription = editTextWorkDescription.getText().toString();
             if (workDescription.isEmpty()) {
-                system.makeShortToast("Arbeitsbeschreibung darf nicht leer sein");
+                system.makeToast("Arbeitsbeschreibung darf nicht leer sein");
                 return;
             }
             system.getProjectManager().getSavedWorkDescriptions().set(index, workDescription);
-            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+            system.saveData();
             dialog.dismiss();
             system.replaceCurrentFragmentWith(new WorkDescriptionsFragment(system), RSKSystem.NO_ANIM);
         });

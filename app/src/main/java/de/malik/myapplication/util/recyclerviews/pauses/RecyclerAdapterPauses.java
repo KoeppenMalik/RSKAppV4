@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 import de.malik.myapplication.R;
-import de.malik.myapplication.util.customermanagement.Pause;
+import de.malik.myapplication.util.projectmanagement.Pause;
 
 import java.util.ArrayList;
 

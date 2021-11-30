@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.MainActivity;
-import de.malik.myapplication.listeners.onclick.ListenerSwitchFragment;
+import de.malik.myapplication.listeners.onclick.OnClickListenerSwitchFragment;
 import de.malik.myapplication.util.RSKSystem;
 
 public class InfoFragment extends Fragment {
@@ -45,6 +45,6 @@ public class InfoFragment extends Fragment {
     }
 
     private void setListeners() {
-        buttonBack.setOnClickListener(new ListenerSwitchFragment(new OverviewFragment(system), system, R.anim.slide_up));
+        buttonBack.setOnClickListener(new OnClickListenerSwitchFragment(new OverviewFragment(system), system, R.anim.slide_up));
     }
 }

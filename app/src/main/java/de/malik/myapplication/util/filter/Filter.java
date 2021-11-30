@@ -1,67 +1,65 @@
 package de.malik.myapplication.util.filter;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.Comparator;
 
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Project;
-import de.malik.myapplication.util.customermanagement.ProjectManager;
-import de.malik.mylibrary.managers.TimeManager;
+import de.malik.myapplication.util.projectmanagement.ProjectManager;
 
 public class Filter {
 
-    private String text;
-    private FilterValue value;
+    public static final String[] FILTER_LABELS = new String[] {
+            "Datum (alt zu neu)", "Datum (neu zu alt)", "Name (A - Z)", "Erstellt (alt zu neu)"
+    };
+    public static final int[] FILTER_VALUE_TYPES = new int[] {
+            ProjectManager.PROJECT_DATES, ProjectManager.PROJECT_DATES, ProjectManager.PROJECT_NAMES, ProjectManager.PROJECT_IDS
+    };
+    public static final FilterValue[] FILTER_ORIENTATIONS = new FilterValue[] {
+            FilterValue.ASCENDING, FilterValue.DESCENDING, FilterValue.ASCENDING, FilterValue.ASCENDING
+    };
 
-    public Filter(String text, FilterValue filterValue) {
+    private long id;
+    private String text;
+    private int value;
+    private FilterValue orientation;
+
+    public Filter(long id, String text, int value, FilterValue orientation) {
+        this.id = id;
         this.text = text;
-        value = filterValue;
+        this.value = value;
+        this.orientation = orientation;
     }
 
-    public static ArrayList<Project> sort(FilterValue newValue, ProjectManager projectManager) {
-        ArrayList<Project> projects = projectManager.getProjects();
-        if (RSKSystem.currentFilter.getValue() == newValue)
-            return projectManager.getProjects();
-        if (newValue == FilterValue.CREATED_ASC) {
-            ArrayList<Long> ids = new ProjectManager.FilterHelper().getAllIds(projects);
-            ids.sort((o1, o2) -> {
-                return o1.compareTo(o2);
-            });
-            return new ProjectManager.FilterHelper().assignProjectsToIds(ids, projects);
+    private static ArrayList<String> order(FilterValue orientation, ArrayList<String> data) {
+        if (orientation == FilterValue.ASCENDING)
+            data.sort(Comparator.naturalOrder());
+        else
+            data.sort(Comparator.reverseOrder());
+        return data;
+    }
+
+    public static void sortProjects(Filter newFilter) {
+        ProjectManager.FilterHelper helper = new ProjectManager.FilterHelper();
+        if (RSKSystem.currentFilter.getId() != newFilter.getId()) {
+            ArrayList<String> data = helper.getProjectValues(newFilter.getValue());
+            ArrayList<String> orderedData = order(newFilter.getOrientation(), data);
+            ProjectManager.projects = helper.assignProjectsToValues(orderedData, newFilter.getValue());
         }
-        else if (newValue == FilterValue.DATE_OLD_TO_NEW || newValue == FilterValue.DATE_NEW_TO_OLD) {
-            DateFormat df = new SimpleDateFormat(TimeManager.default_date_format, Locale.GERMANY);
-            ArrayList<String> dates = new ProjectManager.FilterHelper().getAllDates(projects);
-            dates.sort((o1, o2) -> {
-                try {
-                    if (newValue == FilterValue.DATE_OLD_TO_NEW)
-                        return df.parse(o1).compareTo(df.parse(o2));
-                    return df.parse(o2).compareTo(df.parse(o1));
-                } catch (ParseException ex) {
-                    ex.printStackTrace();
-                }
-                return 0;
-            });
-            return new ProjectManager.FilterHelper().assignProjectsToDates(dates, projects);
-        }
-        else if (newValue == FilterValue.NAME_A_TO_Z) {
-            ArrayList<String> names = new ProjectManager.FilterHelper().getAllNames(projects);
-            names.sort((o1, o2) -> {
-                return o1.compareTo(o2);
-            });
-            return new ProjectManager.FilterHelper().assignProjectsToNames(names, projects);
-        }
-        return projectManager.getProjects();
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getText() {
         return text;
     }
 
-    public FilterValue getValue() {
+    public int getValue() {
         return value;
+    }
+
+    public FilterValue getOrientation() {
+        return orientation;
     }
 }

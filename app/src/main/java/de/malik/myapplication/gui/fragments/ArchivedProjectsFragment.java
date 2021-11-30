@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import de.malik.myapplication.R;
-import de.malik.myapplication.listeners.onclick.ListenerSwitchFragment;
+import de.malik.myapplication.listeners.onclick.OnClickListenerSwitchFragment;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.recyclerviews.projects.recyclerviewarchivedprojects.ItemTouchHelperRecyclerViewArchivedProjects;
 import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProjects;
@@ -54,7 +54,7 @@ public class ArchivedProjectsFragment extends Fragment {
     private void setListeners() {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperRecyclerViewArchivedProjects(system, this, 0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT));
         itemTouchHelper.attachToRecyclerView(recyclerView);
-        buttonBack.setOnClickListener(new ListenerSwitchFragment(new OverviewFragment(system), system, R.anim.slide_down));
+        buttonBack.setOnClickListener(new OnClickListenerSwitchFragment(new OverviewFragment(system), system, R.anim.slide_down));
     }
 
     public RecyclerAdapterProjects getRecyclerAdapter() {

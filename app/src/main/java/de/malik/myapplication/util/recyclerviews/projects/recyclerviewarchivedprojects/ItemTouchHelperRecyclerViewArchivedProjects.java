@@ -13,8 +13,8 @@ import com.google.android.material.snackbar.Snackbar;
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.ArchivedProjectsFragment;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Project;
-import de.malik.myapplication.util.customermanagement.ProjectManager;
+import de.malik.myapplication.util.projectmanagement.Project;
+import de.malik.myapplication.util.projectmanagement.ProjectManager;
 import de.malik.myapplication.util.recyclerviews.projects.RecyclerAdapterProjects;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -55,14 +55,14 @@ public class ItemTouchHelperRecyclerViewArchivedProjects extends ItemTouchHelper
             // unarchive
             unarchivedProject = projectManager.getArchivedProjects().get(INDEX);
             projectManager.getArchivedProjects().remove(INDEX);
-            projectManager.getProjects().add(unarchivedProject);
+            ProjectManager.projects.add(unarchivedProject);
             recyclerAdapterProjects.notifyDataSetChanged();
             Snackbar.make(archivedProjectsFragment.getRecyclerView(), "Kunde \"" + unarchivedProject.getName() + "\" unarchiviert", Snackbar.LENGTH_LONG)
                     .setAction("Rückgängig machen", new OnClickListenerUndoUnarchiveCustomer(INDEX, system, unarchivedProject, recyclerAdapterProjects))
                     .show();
         }
         recyclerAdapterProjects.setProjects(projectManager.getArchivedProjects());
-        system.getFileManager().getPrinter().reprintFiles(projectManager);
+        system.saveData();
     }
 
     @Override

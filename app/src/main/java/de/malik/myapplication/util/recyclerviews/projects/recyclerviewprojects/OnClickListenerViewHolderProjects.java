@@ -6,7 +6,7 @@ import android.view.View;
 import de.malik.myapplication.R;
 import de.malik.myapplication.gui.fragments.ProjectFragment;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.myapplication.util.projectmanagement.Project;
 
 public class OnClickListenerViewHolderProjects implements View.OnClickListener {
 

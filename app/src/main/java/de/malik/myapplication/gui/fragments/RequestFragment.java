@@ -15,17 +15,18 @@ import androidx.fragment.app.Fragment;
 import java.text.ParseException;
 
 import de.malik.myapplication.R;
-import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerImageButtonChooseName;
-import de.malik.myapplication.listeners.onclick.editprojectfragment.OnClickListenerImageButtonChooseWorkDescription;
+import de.malik.myapplication.listeners.onclick.OnClickListenerButtonSave;
+import de.malik.myapplication.listeners.onclick.OnClickListenerImageButtonChooseSavedCustomerData;
+import de.malik.myapplication.listeners.onclick.OnClickListenerSwitchFragment;
 import de.malik.myapplication.listeners.onclick.requestfragment.OnClickListenerButtonConvertToCustomers;
-import de.malik.myapplication.listeners.onclick.requestfragment.OnClickListenerButtonCancel;
-import de.malik.myapplication.listeners.onclick.requestfragment.OnClickListenerButtonFinish;
 import de.malik.myapplication.listeners.onclick.requestfragment.OnClickListenerButtonSetDate;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Request;
+import de.malik.myapplication.util.Savable;
+import de.malik.myapplication.util.projectmanagement.CustomerData;
+import de.malik.myapplication.util.projectmanagement.Request;
 import de.malik.mylibrary.managers.TimeManager;
 
-public class RequestFragment extends Fragment {
+public class RequestFragment extends Fragment implements Savable {
 
     private RSKSystem system;
     private View v;
@@ -44,6 +45,15 @@ public class RequestFragment extends Fragment {
         v = inflater.inflate(R.layout.request_fragment, container, false);
         handleGui();
         return v;
+    }
+
+    @Override
+    public void performSave() {
+        request.setName(editTextName.getText().toString());
+        String cleanDate = editTextDate.getText().toString().split(" ")[0];
+        request.setDate(cleanDate);
+        request.setDescription(editTextWorkDescription.getText().toString());
+        system.replaceCurrentFragmentWith(new RequestsFragment(system), R.anim.slide_down);
     }
 
     private void handleGui() {
@@ -75,20 +85,12 @@ public class RequestFragment extends Fragment {
     }
 
     private void setListeners() {
-        imageButtonChooseName.setOnClickListener(new OnClickListenerImageButtonChooseName(system, editTextName));
-        imageButtonChooseDescription.setOnClickListener(new OnClickListenerImageButtonChooseWorkDescription(system, editTextWorkDescription));
-        buttonFinish.setOnClickListener(new OnClickListenerButtonFinish(system, request, this));
+        imageButtonChooseName.setOnClickListener(new OnClickListenerImageButtonChooseSavedCustomerData(system, editTextName, CustomerData.CHOOSE_SAVED_NAMES));
+        imageButtonChooseDescription.setOnClickListener(new OnClickListenerImageButtonChooseSavedCustomerData(system, editTextWorkDescription, CustomerData.CHOOSE_SAVED_WORK_DESCRIPTIONS));
+        buttonFinish.setOnClickListener(new OnClickListenerButtonSave(this, system));
         buttonSetDate.setOnClickListener(new OnClickListenerButtonSetDate(system, editTextDate, request));
-        buttonCancel.setOnClickListener(new OnClickListenerButtonCancel(system));
+        buttonCancel.setOnClickListener(new OnClickListenerSwitchFragment(new RequestsFragment(system), system, R.anim.slide_down));
         buttonAddToCustomers.setOnClickListener(new OnClickListenerButtonConvertToCustomers(system, request));
-    }
-
-    public EditText getEditTextName() {
-        return editTextName;
-    }
-
-    public EditText getEditTextDate() {
-        return editTextDate;
     }
 
     public EditText getEditTextWorkDescription() {

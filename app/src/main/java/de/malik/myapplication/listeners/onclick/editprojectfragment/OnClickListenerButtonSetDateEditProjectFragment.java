@@ -7,16 +7,11 @@ import android.widget.EditText;
 
 import androidx.fragment.app.DialogFragment;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
 
 import de.malik.myapplication.util.DatePickerFragment;
 import de.malik.myapplication.util.RSKSystem;
-import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.myapplication.util.projectmanagement.Project;
 import de.malik.mylibrary.managers.TimeManager;
 
 public class OnClickListenerButtonSetDateEditProjectFragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener {

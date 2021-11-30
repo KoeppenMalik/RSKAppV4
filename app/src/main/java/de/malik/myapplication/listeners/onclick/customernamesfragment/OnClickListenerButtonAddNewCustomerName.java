@@ -20,7 +20,7 @@ public class OnClickListenerButtonAddNewCustomerName implements View.OnClickList
 
     @Override
     public void onClick(View paramView) {
-        Dialog dialog = new Dialog(system.getMain().getDialogContext());
+        Dialog dialog = new Dialog(system.getMainActivity().getDialogContext());
         dialog.setContentView(R.layout.add_customer_name_dialog);
         dialog.setTitle("Erstellen");
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -37,11 +37,11 @@ public class OnClickListenerButtonAddNewCustomerName implements View.OnClickList
         buttonFinish.setOnClickListener((view) -> {
             String customerName = editTextCustomerName.getText().toString();
             if (customerName.isEmpty()) {
-                system.makeShortToast("Name darf nicht leer sein");
+                system.makeToast("Name darf nicht leer sein");
                 return;
             }
             system.getProjectManager().getSavedCustomerNames().add(customerName);
-            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+            system.saveData();
             dialog.dismiss();
             system.replaceCurrentFragmentWith(new ProjectNamesFragment(system), RSKSystem.NO_ANIM);
         });

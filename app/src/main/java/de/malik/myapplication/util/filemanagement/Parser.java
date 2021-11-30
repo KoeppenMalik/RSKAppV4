@@ -2,13 +2,12 @@
 
 package de.malik.myapplication.util.filemanagement;
 
-import de.malik.myapplication.util.customermanagement.Request;
-import de.malik.myapplication.util.customermanagement.Project;
-import de.malik.myapplication.util.customermanagement.Pause;
+import de.malik.myapplication.util.projectmanagement.Request;
+import de.malik.myapplication.util.projectmanagement.Project;
+import de.malik.myapplication.util.projectmanagement.Pause;
 import de.malik.mylibrary.managers.TimeManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 public class Parser {

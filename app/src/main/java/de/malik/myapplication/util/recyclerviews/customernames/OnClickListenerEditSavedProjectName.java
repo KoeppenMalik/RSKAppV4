@@ -22,7 +22,7 @@ public class OnClickListenerEditSavedProjectName implements View.OnClickListener
 
     @Override
     public void onClick(View viewParam) {
-        Dialog dialog = new Dialog(system.getMain().getDialogContext());
+        Dialog dialog = new Dialog(system.getMainActivity().getDialogContext());
         dialog.setContentView(R.layout.edit_saved_project_data);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
@@ -39,11 +39,11 @@ public class OnClickListenerEditSavedProjectName implements View.OnClickListener
         buttonFinish.setOnClickListener((view) -> {
             String projectName = editTextProjectName.getText().toString();
             if (projectName.isEmpty()) {
-                system.makeShortToast("Projektname darf nicht leer sein");
+                system.makeToast("Projektname darf nicht leer sein");
                 return;
             }
             system.getProjectManager().getSavedCustomerNames().set(index, projectName);
-            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+            system.saveData();
             dialog.dismiss();
             system.replaceCurrentFragmentWith(new ProjectNamesFragment(system), RSKSystem.NO_ANIM);
         });

@@ -12,8 +12,8 @@ import java.util.Date;
 import de.malik.myapplication.gui.fragments.ProjectFragment;
 import de.malik.myapplication.util.RSKSystem;
 import de.malik.myapplication.util.TimePickerFragment;
-import de.malik.myapplication.util.customermanagement.Pause;
-import de.malik.myapplication.util.customermanagement.Project;
+import de.malik.myapplication.util.projectmanagement.Pause;
+import de.malik.myapplication.util.projectmanagement.Project;
 import de.malik.mylibrary.managers.TimeManager;
 
 public class OnClickListenerButtonSetStopTime implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
@@ -43,9 +43,9 @@ public class OnClickListenerButtonSetStopTime implements View.OnClickListener, T
             project.setStopTime(selectedTime);
             projectFragment.getEditTextStopTime().setText(TimeManager.formatTimeString(TimeManager.toTimeString(selectedTime, false)));
             setTotalTime();
-            system.getFileManager().getPrinter().reprintFiles(system.getProjectManager());
+            system.saveData();
         }
-        else system.makeShortToast("Wähle zuerst die Startzeit");
+        else system.makeToast("Wähle zuerst die Startzeit");
     }
 
     private void setTotalTime() {

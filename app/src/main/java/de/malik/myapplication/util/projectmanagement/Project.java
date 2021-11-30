@@ -1,22 +1,21 @@
 // Created on 29.01.2021, 16:15
 
-package de.malik.myapplication.util.customermanagement;
-
-import de.malik.myapplication.util.filemanagement.RSKFileManager;
-import de.malik.mylibrary.managers.TimeManager;
+package de.malik.myapplication.util.projectmanagement;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Project {
+import de.malik.mylibrary.managers.TimeManager;
 
-    private long id;
+public class Project extends Unifiable {
+
     private String name, date, workDescription;
     private Date startTime, stopTime;
     private ArrayList<Pause> pauses = new ArrayList<>();
 
     public Project(long id, String name, Date startTime, Date stopTime, String date, String workDescription) {
-        this.id = id;
+        super( id+"", name, TimeManager.toTimeString(startTime, false), TimeManager.toTimeString(stopTime, false), date, workDescription);
+        setId(id);
         this.name = name;
         this.startTime = startTime;
         this.stopTime = stopTime;
@@ -24,21 +23,9 @@ public class Project {
         this.workDescription = workDescription;
     }
 
-    /**
-     * creates a string which is ready to be printed into a file. it contains all the data of the customer
-     * @return a string which can be printed into a file
-     */
-    public String getRecord() {
-        String record = id + RSKFileManager.SPLIT_REGEX + name + RSKFileManager.SPLIT_REGEX + TimeManager.toTimeString(startTime, false) + RSKFileManager.SPLIT_REGEX + TimeManager.toTimeString(stopTime, false) +
-                RSKFileManager.SPLIT_REGEX + date + RSKFileManager.SPLIT_REGEX + workDescription;
-        for (Pause pause : pauses) {
-            record += RSKFileManager.SPLIT_REGEX + pause.getId();
-        }
-        return record;
-    }
-
-    public long getId() {
-        return id;
+    @Override
+    public void updateRecord() {
+        super.createPrintableString(getPauses(),getId()+"", name, TimeManager.toTimeString(startTime, false), TimeManager.toTimeString(stopTime, false), date, workDescription);
     }
 
     public String getName() {
